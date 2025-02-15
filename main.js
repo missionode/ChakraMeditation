@@ -339,6 +339,7 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
       <p><strong>Location: ${chakra.location}</strong></p>
       <p><strong>Power: ${chakra.feature}</strong></p>
       <p><strong>Element: ${chakra.element}</strong></p>
+      <p><strong>Description: ${chakra.description}</strong></p>
       <p><progress min="1" max="10" value="${progress}"></progress></p>
       <button class="timer-button" data-timer="${timer}">${timer} Minute Timer</button>
     `;
@@ -346,6 +347,7 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
     chakraCardsContainer.appendChild(chakraCard);
 
     // Show the timer when meditation is over 
+    
     Timer()
     
   // Navigate to the chakra cards
@@ -397,7 +399,8 @@ function Timer() {
 
     // Function to play the beep sound
     function playBeep() {
-      var audio = document.getElementById('beep-sound');
+      var audio = document.getElementById("beep-sound");
+      // Play the audio automatically when the page loads
       audio.play();
     }
 
@@ -419,12 +422,15 @@ function Timer() {
 
     // Path to the audio file
     var audioFile = "audio/Instant_Pineal_Activation_•_Pure_Tones_•_Warning_Extremely_Powerful!128k.m4a";
-
+    // var audioFile = "audio/temple-bells-277268.mp3";
+    
     // Create an audio element
     var audio = new Audio(audioFile);
 
     // Set the initial volume to 0
     audio.volume = 0;
+
+    audio.loop = true
 
     // Play the audio
     audio.play();
@@ -438,7 +444,7 @@ function Timer() {
         audio.volume += fadeInVolumeStep;
         setTimeout(fadeInAudio, 100);
       } else {
-        audio.volume = 0.5;
+        audio.volume = 0.2;
       }
     }
 
@@ -461,7 +467,7 @@ function Timer() {
 
       fadeOutAudio();
     }, duration);
-
+  
 
 
       // Audio player done
@@ -475,13 +481,21 @@ function Timer() {
           clearInterval(interval);
 
           // Play the beep sound
-          // playBeep();
+          playBeep();
           
           // Reset the button text
           button.innerHTML = 'Timer';
 
           // Enable the button again
           button.disabled = false;
+        }
+        if(timer == 5) {
+          console.log("All fixed")
+          // Get the audio element
+          var audio = document.getElementById("beep-sound");
+
+          // Play the audio automatically when the page loads
+          audio.play();
         }
       }, 1000);
     }
@@ -498,6 +512,7 @@ function Timer() {
         this.innerHTML = timerDuration + 'm';
         this.disabled = true; // Disable the button while the timer is running
         startTimer(timerDuration, this);
+        
       });
     }
 }
