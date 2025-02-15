@@ -1,0 +1,394 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #0d012a;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+img {
+max-width: 100%;
+height: auto;
+border-radius: 5px;;
+}
+
+details,div#private {
+  border: 1px solid #e5e5e55f;
+  padding: 10px;
+  background: rgba(25, 9, 62, 0.99);
+  margin-top: 10px;
+  color: white;
+}
+.headi {
+ color: white;
+}
+
+.inputi {
+  padding: 10px 20px;
+  width: 300px;
+  border-radius: 6px;
+  border: none;
+}
+.glassy-button {
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #FFFFFF, #E0E0E0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.15);
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.glassy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+
+#energylevel {
+  font-size: 19px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #0d012a;
+}
+.EnergySpot {
+  font-size: 19px;
+  padding: 11px 20px;
+  border-radius: 5px;
+  color: white;
+  background-color: #190b3a;
+  border:0;
+}
+
+.modernChakra {
+  display: flow-root;
+    font-size: 19px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+}
+
+.programmed img {
+  width: 97%;
+  margin: auto;
+}
+
+details p {
+  color: white;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+details summary::after {
+  /* content: "∨"; */
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+details.open summary::after {
+  /* content: "∧;"; */
+}
+
+/* The grid container */
+.figure-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  grid-gap: 10px;
+  margin-bottom: 36px;
+  border-bottom: 1px solid #360e97;
+  padding-bottom: 36px;
+  box-shadow: 1px 2px 3px #29125f;
+  border-radius: 6px;
+  padding: 14px 5px;
+}
+
+/* The figure */
+figure {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* The figure image */
+figure img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 1px 2px 3px #29125f;
+  cursor: pointer;
+}
+
+figure figcaption {
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 10px;
+  /* font-size: 25px; */
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  background-image: linear-gradient(to right, #ffea9e, #fa9785, #73b2f3 );
+  background-size: 100% 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  }
+
+  input[type="range"]:focus {
+  outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+  background-color: #ffffff;
+  border: 1px solid #828282;
+  height: 10px;
+  width: 20px;
+  border-radius: 50%;
+  }
+
+.chakra-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  box-shadow: 1px 2px 3px #29125f;
+  margin-top: 20px;
+}
+
+#passwordHolder {
+  font-size: 19px;
+  width: 232px;
+  padding: 5px 9px;
+}
+
+#show {
+  padding: 10px 20px;
+  background-color: #29125f;
+  font-size: 19px;
+  border: 0;
+  color: white;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.chakra-card h2 {
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.feature {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+}
+
+.review {
+  padding:20px;
+  box-shadow: 1px 2px 3px #29125f;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+#chakraForm, .description {
+  padding:16px;
+  box-shadow: 1px 2px 3px #29125f;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+#chakraForm p {
+    border-bottom: 1px solid #360e97;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+p.heroe {
+    color: white;
+    font-size: 17px;
+    text-transform: capitalize;
+}
+
+.advanced {
+  margin-top: 0;
+  text-transform: capitalize;
+  color: white;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+h2 {
+  margin-top: 0;
+  text-transform: capitalize;
+  color: white;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+p {
+    font-size:17px;
+    color: white;
+}
+label {
+    display: flow-root;
+    font-size: 19px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+}
+
+/* Add additional styles as desired */
+.chakraCards {
+  text-align: center;
+  padding: 16px;
+}  
+.instruction {
+  font-weight: bold;
+  font-size:16px;
+}
+
+.submit {
+  color: #ffffff;
+  background-color: blue;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.container-cunt {
+  display: flex;
+  justify-content: space-between;
+  }
+
+  .container-inner {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.container-inner img {
+  background-color: white;
+}
+
+  .left,
+  .center,
+  .right {
+  width: 33.33%;
+  padding: 10px;
+  }
+  .left {
+      color: #ffea9e;
+      text-align: left;
+
+  }
+  .center {
+      text-align: center;
+      color: #fa9785;
+  }
+  .right {
+      color: #a1bad4;
+      text-align: right;
+  }
+ 
+.hidden {
+  display: none;
+}
+
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(25, 9, 62, 0.99);
+}
+
+.lightbox-content {
+  position: relative;
+  margin: 10% auto;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.close-button {
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.audio-player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 36px;
+  /* height: 30vh; */
+}
+.takeme {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.programmed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pro {
+  display: flex; 
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.programmed img {
+  box-shadow: none;
+}
+
+.timer-button {
+  font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 0;
+    color: white;
+    background: #210c54;
+    text-transform: uppercase;
+}

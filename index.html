@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <title>Chakra meditation</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> <!-- Icons and Colors -->
+   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+   <link rel="manifest" href="./manifest.json">
+   <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#3E3EEB">
+   <link rel="shortcut icon" href="./favicon.ico">
+   <meta name="msapplication-TileColor" content="#3E3EEB">
+   <meta name="msapplication-TileImage" content="./mstile-144x144.png">
+   <meta name="msapplication-config" content="./browserconfig.xml">
+   <meta name="theme-color" content="#3E3EEB">
+   
+   <!-- SEO and Social Sharing and SEO -->
+   <meta name="description" content="Simple Chakra Tune Web App" />
+   <meta name="robots" content="noodp" />
+   <meta name="author" content="Syam">
+   <meta name="keywords" content="Chakra Meditation Web" />
+   <meta property="og:locale" content="en_US" />
+   <meta property="og:type" content="website" />
+   <meta property="og:title" content="Chakra Meditation PWA" />
+   <meta property="og:description" content="Simple Chakra Tune Web App" />
+   <meta property="og:url" content="https://bodhiintellect.com/Chakra" />
+   <meta property="og:site_name" content="Simple Chakra Meditation PWA" />
+
+   <!-- Styles -->
+   <link rel="stylesheet" href="style.css?ver=3">
+
+   <!-- Javscript -->
+   <script>
+	   if ("serviceWorker" in navigator) {
+		   window.addEventListener("load", () => {
+			   navigator.serviceWorker && navigator.serviceWorker.register("./sw.js");
+		   });
+	   }
+   </script>
+   <script defer src="./main.js?ver=2"></script>
+</head>
+
+<body>
+
+	<div class="review">
+	   
+	   <h2>How to Meditate in Easy Steps</h2>
+	   
+		<details id="duet">
+			<summary> How to Meditate [Solo]</summary>
+			<div dir="ltr" style="--animation-duration: 600ms;">
+				<p> Sit comfortably and focus on your breath. Bring awareness to your body and any sensations you feel. You can also visualize yourself as a sacred space or object.</p>
+			</div>
+		</details>
+		<details id="duet">
+			<summary>How to Meditate [Duet]</summary>
+			<div dir="ltr" style="--animation-duration: 600ms;">
+				<p>Sit facing your partner and gaze into each other's eyes. Hold hands or touch each other gently. Breathe together and focus on the energy between you.</p>
+			</div>
+		</details>
+		
+   </div>
+   <div class="description">
+	<h1 class="advanced"><span style="color:#fde09b;">Advanced Meditation</span></h1>
+		<h2 class="head">Advanced Chakra Healing</h2>
+		<h3 class="headi">Note Your Manifestation</h4>
+			<input class="inputi" type="text" onfocusout="chakra([this.value])" placeholder="Enter your manifestations Here">
+		<p class="instruction">
+			You need an experienced practitioner to practice these techniques. 
+		</p>
+		<h2>For Advanced Practitioner</h2>
+		<p>Select your current energy to practice </p>
+		<div>
+			<select name="" id="energylevel">
+				<option value="11">Sattva</option>
+				<option value="6">Rajas</option>
+				<option value="1">Tamas</option>`
+			</select>
+			<input class="EnergySpot" onclick="SetEnergy(document.getElementById('energylevel').value)" value="Set Energy" type="button">
+		</div>
+
+		
+	</div>
+	
+	<form id="chakraForm">
+		<label for="root">Root Chakra (Muladhara):</label>
+	   <input class="ival" type="range" id="root" min="1" max="11" value="11" required>
+	   <div class="container-cunt">
+		   <div class="left">Sattva</div>
+		   <div class="center">Rajas</div>
+		   <div class="right">Tamas</div>
+		</div>
+		<div class="figure-container">
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Root/sense-of-smell-smelling-elixir-.png')" src="image/Recraft/Root/sense-of-smell-smelling-elixir-.png" alt="Sense of Smell">
+				<figcaption>* Sense of Smell</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Root/sense-of-security--smelling-elixir-.png')" src="image/Recraft/Root/sense-of-security--smelling-elixir-.png" alt="Our Sense Of Security">
+				<figcaption>Sense Of Security</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Root/sense-of-stability--smelling-elixir-.png')" src="image/Recraft/Root/sense-of-stability--smelling-elixir-.png" alt="Stability">
+				<figcaption>Stability</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Root/elixir-of-responsibility.png')" src="image/Recraft/Root/elixir-of-responsibility.png" alt="Responsibility">
+				<figcaption>Sense of responsibility</figcaption>
+			</figure>
+		</div>
+		<!-- Repeat the above structure for other chakras -->
+		<label for="sacral">Sacral chakra (Svadhishthana):</label>
+		<input class="ival" type="range" id="sacral" min="1" max="11" value="11" required>
+		<div class="container-cunt">
+			<div class="left">Sattva</div>
+		<div class="center">Rajas</div>
+		<div class="right">Tamas</div>
+	</div>
+	<div class="figure-container">
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Sacral/sense-of-pleasure-elixir.png')" src="image/Recraft/Sacral/sense-of-pleasure-elixir.png" alt="Sexuality">
+			<figcaption>* Sexuality</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Sacral/sense-of-taste--elixir-.png')" src="image/Recraft/Sacral/sense-of-taste--elixir-.png" alt="Sense of taste">
+			<figcaption>Sense of taste</figcaption>
+		</figure>
+		<figure>
+		  <img onclick="openLightbox('image/Recraft/Sacral/center-of-our-creativity--elixir-.png')" src="image/Recraft/Sacral/center-of-our-creativity--elixir-.png" alt="center Of Creativity">
+		  <figcaption>Creativity</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Sacral/sense-of-emotions-elixir.png')" src="image/Recraft/Sacral/sense-of-emotions-elixir.png" alt="Emotions">
+			<figcaption>Emotions</figcaption>
+		</figure>
+	</div>
+	<label for="solar">Solar plexus chakra (Manipura):</label>
+	<input class="ival" type="range" id="solar" min="1" max="11" value="11" required>
+	<div class="container-cunt">
+		<div class="left">Sattva</div>
+		<div class="center">Rajas</div>
+		<div class="right">Tamas</div>
+	</div>
+	<div class="figure-container">
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Solar/sense-of-sight-elixir.png')" src="image/Recraft/Solar/sense-of-sight-elixir.png" alt="Sense of sight">
+			<figcaption>* Sense of Sight</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Solar/center-of-our-personal-power-elixir.png')" src="image/Recraft/Solar/center-of-our-personal-power-elixir.png" alt="Center Of personal power">
+		  <figcaption>Personal Power</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Solar/center-of-our-will-power-elixir.png')" src="image/Recraft/Solar/center-of-our-will-power-elixir.png" alt="will power">
+			<figcaption>Will power</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Solar/center-of-our-self-esteem-elixir.png')" src="image/Recraft/Solar/center-of-our-self-esteem-elixir.png" alt="Self esteem">
+			<figcaption>Self Esteem</figcaption>
+		</figure>
+	</div>
+	   <label for="heart">Heart chakra (Anahata):</label>
+	   <input class="ival" type="range" id="heart" min="1" max="11" value="11" required>
+	   <div class="container-cunt">
+		   <div class="left">Sattva</div>
+		   <div class="center">Rajas</div>
+		   <div class="right">Tamas</div>
+		</div>
+		<div class="figure-container">
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Heart/sense-of-touch-elixir.png')" src="image/Recraft/Heart/sense-of-touch-elixir.png" alt="Sense of touch">
+		  <figcaption>* Sense of touch</figcaption>
+		</figure>
+		<figure>
+		  <img onclick="openLightbox('image/Recraft/Heart/center-of-our-love-elixir.png') "src="image/Recraft/Heart/center-of-our-love-elixir.png" alt="Center of our love">
+		  <figcaption>Center of our Love</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Heart/sense-of-compassion-elixir.png')" src="image/Recraft/Heart/sense-of-compassion-elixir.png" alt="Compassion">
+			<figcaption>Compassion</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Heart/-elixir.png')" src="image/Recraft/Heart/-elixir.png" alt="Self forgiveness">
+			<figcaption>Self Esteem</figcaption>
+		</figure>
+	</div>
+	
+	<label for="throat">Throat chakra (Vishuddha):</label>
+	<input class="ival" type="range" id="throat" min="1" max="11" value="11" required>
+	<div class="container-cunt">
+		<div class="left">Sattva</div>
+		<div class="center">Rajas</div>
+		<div class="right">Tamas</div>
+	</div>
+	<div class="figure-container">
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Throat/-sense-of-sound-elixir.png')" src="image/Recraft/Throat/-sense-of-sound-elixir.png" alt="Sense of Hearing">
+			<figcaption>* Sense of Hearing</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Throat/center-of-our-communication-elixir.png')" src="image/Recraft/Throat/center-of-our-communication-elixir.png" alt="Center of our communication">
+			<figcaption>Communication</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Throat/self-expression-elixir.png')" src="image/Recraft/Throat/self-expression-elixir.png" alt="Self Expression">
+			<figcaption>Self Expression</figcaption>
+		</figure>
+		<figure>
+			<img onclick="openLightbox('image/Recraft/Throat/truth-elixir.png')" src="image/Recraft/Throat/truth-elixir.png" alt="Truth">
+			<figcaption>Truth</figcaption>
+		</figure>
+		</div>
+	   <label for="third">Third eye chakra (Ajna):</label>
+	   <input  class="ival" type="range" id="third" min="1" max="11" value="11" required>
+	   <div class="container-cunt">
+		   <div class="left">Sattva</div>
+		   <div class="center">Rajas</div>
+		   <div class="right">Tamas</div>
+		</div>
+		<div class="figure-container">
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Third-eye/the-sense-of-intuition-elixir.png')" src="image/Recraft/Third-eye/the-sense-of-intuition-elixir.png" alt="Sense Of intuition">
+				<figcaption>* Sense Of intuition</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Third-eye/center-of-our-inner-vision-elixir.png')" src="image/Recraft/Third-eye/center-of-our-inner-vision-elixir.png" alt="Center Of truth">
+				<figcaption>Inner vision</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Third-eye/wisdom-elixir.png')" src="image/Recraft/Third-eye/wisdom-elixir.png" alt="Wisom">
+				<figcaption>Wisdom</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Third-eye/insight-elixir.png')" src="image/Recraft/Third-eye/insight-elixir.png" alt="Insight">
+				<figcaption>Insight</figcaption>
+			</figure>
+			
+		</div>
+		
+		<label for="crown">Crown chakra (Sahasrara):</label>
+		<input class="ival" type="range" id="crown" min="1" max="11" value="11" required>
+	   <div class="container-cunt">
+		   <div class="left">Sattva</div>
+		   <div class="center">Rajas</div>
+		   <div class="right">Tamas</div>
+		</div>
+		<div class="figure-container">
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Crown/sense-of-knowing-elixir.png')" src="image/Recraft/Crown/sense-of-knowing-elixir.png" alt="Sense of Knowing">
+				<figcaption>* Transcendence</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Crown/center-of-our-connection-to-the-divine-elixir.png')" src="image/Recraft/Crown/center-of-our-connection-to-the-divine-elixir.png" alt="Connection with divine">
+				<figcaption>Connection with divine</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Crown/higher-consciousness-elixir.png')" src="image/Recraft/Crown/higher-consciousness-elixir.png" alt="Higher Consciousness">
+				<figcaption>Higher Consciousness</figcaption>
+			</figure>
+			<figure>
+				<img onclick="openLightbox('image/Recraft/Crown/enlightenment-elixir.png')" src="image/Recraft/Crown/enlightenment-elixir.png" alt="Enlightenment">
+				<figcaption>Enlightenment</figcaption>
+			</figure>
+			
+		</div>
+		
+		
+		
+		<input class="submit" type="submit" value="Agree"/>
+	</form>
+	
+	<div id="chakraCards"></div>
+	
+	 <div id="lightbox" class="lightbox">
+		<div class="lightbox-content">
+			<span class="close-button">&times;</span>
+			<img id="lightbox-image" src="" alt="">
+		</div>
+	</div>
+	
+	<!-- Timer  -->
+	<div class="review">
+		<div class="audio-player-container">
+			<audio controls id="Full-sound">
+			  <source src="audio/chakra.webm" >
+			  Your browser does not support the audio element.
+			</audio>
+		</div>
+		<p class="takeme">1 Hour Meditation</p>
+	</div>
+	<div class="review">
+		<details id="duet">
+			<summary> Understanding Aura <span style="color:fa9785;">*</span></summary>
+			<p>Once you have programmed your chakras, now you need to connect the chakras to your Aura</p>
+			<p>Aura is the rendering engine. By Meditating on the Aura chakra you can connect your Aura effectively</p>
+			
+			<div dir="ltr" >
+				<figure class="pro">
+					<img onclick="openLightbox('image/Aura/AuraCHAKRAzoom.png')" src="image/Aura/Aura-chakra.png" alt="Chakrayoga">
+				</figure>
+			</div>
+		</details>
+		
+		<div style="margin-top:20px;" class="audio-player-container">
+			<audio controls id="Full-sound">
+				<source src="audio/Windofaura.mp3" >
+				Your browser does not support the audio element.
+			</audio>
+		</div>
+		<p class="takeme">Aura Meditation</p>
+
+
+		<details id="private" hidden>
+			<summary class=""> Modern Chakra Symbol <span style="color:fa9785;">*</span></summary>
+			<div dir="ltr" >
+				<figure class="programmed">
+					<img onclick="openLightbox('image/Chakra/Chakrayoga.png')" src="image/Chakra/Chakrayoga.png" alt="Chakrayoga">
+				</figure>
+			</div>
+			<div style="margin-top:20px;" class="audio-player-container">
+				<audio controls id="Full-sound">
+					<source src="audio/breathing.mp3" loop="true" >
+					Your browser does not support the audio element.
+				</audio>
+			</div>
+			<p class="takeme">Chakrayoga Meditation</p>
+		</details>
+
+	</div>
+	
+	
+</body>
+</html>
