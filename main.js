@@ -306,7 +306,7 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
   event.preventDefault();
 
   const progressValues = Array.from(document.querySelectorAll("input[type='range']")).map((input) => parseInt(input.value));
-  const sortedChakras = chakras.slice().sort((b, a) => progressValues[chakras.indexOf(a)] - progressValues[chakras.indexOf(b)]);
+  const sortedChakras = chakras.slice().sort((a, b) => progressValues[chakras.indexOf(a)] - progressValues[chakras.indexOf(b)]);
   const chakraCardsContainer = document.getElementById("chakraCards");
   chakraCardsContainer.innerHTML = "";
 
@@ -316,6 +316,7 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
     chakraCard.style.borderTop = "10px solid" + chakra.colorcode;
 
     const progress = progressValues[chakras.indexOf(chakra)];
+    console.log("progress",progress)
     var timer = 11 - progress
     if(timer == 0) {
       timer = 1
@@ -340,7 +341,6 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
       <p><strong>Power: ${chakra.feature}</strong></p>
       <p><strong>Element: ${chakra.element}</strong></p>
       <p><strong>Description: ${chakra.description}</strong></p>
-      <p><progress min="1" max="10" value="${progress}"></progress></p>
       <button class="timer-button" data-timer="${timer}">${timer} Minute Timer</button>
     `;
 
