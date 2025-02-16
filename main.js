@@ -368,60 +368,6 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
   });
 });
 
-// fade the audio for smooth transition 
-const audio = document.querySelector('.mantra-audio');
-
-  audio.addEventListener('play', () => {
-    fadeIn(audio, 1000); // Fade in over 1 second (1000 milliseconds)
-  });
-
-  audio.addEventListener('ended', () => {
-    // Optional: You might want to do something after the audio ends,
-    // like resetting the volume or preparing for the next track.
-  });
-
-  // Fade out when the audio is paused or the user navigates away
-  audio.addEventListener('pause', () => {
-    fadeOut(audio, 1000); // Fade out over 1 second
-  });
-  window.addEventListener('beforeunload', () => {
-    fadeOut(audio, 1000); // Fade out over 1 second
-  });
-
-  function fadeIn(audio, duration) {
-    const startVolume = audio.volume; // Store the initial volume (e.g., if it was already modified)
-    audio.volume = 0; // Start at 0 volume
-    audio.play();  // Ensure the audio starts playing even at 0 volume.
-    let currentVolume = 0;
-    const interval = 50; // Adjust the interval for smoother or faster fading.
-    const steps = duration / interval;
-
-    const fadeInterval = setInterval(() => {
-      currentVolume += startVolume/steps;
-      audio.volume = Math.min(currentVolume, startVolume); // Don't exceed the original volume
-      if (currentVolume >= startVolume) {
-        clearInterval(fadeInterval);
-      }
-    }, interval);
-  }
-
-  function fadeOut(audio, duration) {
-    const startVolume = audio.volume;
-    let currentVolume = startVolume;
-    const interval = 50;
-    const steps = duration / interval;
-
-    const fadeInterval = setInterval(() => {
-      currentVolume -= startVolume/steps;
-      audio.volume = Math.max(currentVolume, 0); // Don't go below 0 volume
-      if (currentVolume <= 0) {
-        clearInterval(fadeInterval);
-        audio.pause(); // Pause the audio at the end of the fade-out
-        audio.volume = startVolume; // Reset the volume if needed.
-      }
-    }, interval);
-  }
-
 
 // lightbox Plugin 
 function openLightbox(imageUrl) {
@@ -437,7 +383,7 @@ function openLightbox(imageUrl) {
     var audio = new Audio(audioFile);
 
     // Set the initial volume to 0
-    // audio.volume = 0;
+    audio.volume = 0.1;
 
     // Play the audio
     audio.play();
@@ -494,7 +440,7 @@ function Timer() {
     var audio = new Audio(audioFile);
 
     // Set the initial volume to 0
-    audio.volume = 0;
+    audio.volume = 0.3;
 
     audio.loop = false
 
