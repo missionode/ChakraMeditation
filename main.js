@@ -421,7 +421,7 @@ function Timer() {
     var fadeOutDuration = 2000;
 
     // Path to the audio file
-    var audioFile = "audio/Instant_Pineal_Activation_•_Pure_Tones_•_Warning_Extremely_Powerful!128k.m4a";
+    var audioFile = "audio/temple-bells-277268.mp3";
     // var audioFile = "audio/temple-bells-277268.mp3";
     
     // Create an audio element
@@ -430,7 +430,7 @@ function Timer() {
     // Set the initial volume to 0
     audio.volume = 0;
 
-    audio.loop = true
+    audio.loop = false
 
     // Play the audio
     audio.play();
