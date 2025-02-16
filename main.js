@@ -383,7 +383,7 @@ function openLightbox(imageUrl) {
     var audio = new Audio(audioFile);
 
     // Set the initial volume to 0
-    audio.volume = 0.1;
+    audio.volume = 0.0;
 
     // Play the audio
     audio.play();

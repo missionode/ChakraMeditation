@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
   font-family: 'Roboto', sans-serif;
   background: #0d012a;
   margin: 0;
   padding-bottom: 30px;
 }
+
 
 img {
 max-width: 100%;
@@ -54,12 +57,13 @@ details,div#private {
     color: #0d012a;
 }
 .EnergySpot {
-  font-size: 19px;
+  font-size: 16px;
   padding: 11px 20px;
   border-radius: 5px;
   color: white;
   background-color: #190b3a;
   border:0;
+  cursor: pointer;
 }
 
 .modernChakra {
@@ -83,6 +87,7 @@ details p {
 
 details summary {
   cursor: pointer;
+  font-size: 18px;
 }
 
 details summary::after {
@@ -137,7 +142,7 @@ input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
   height: 15px;
-  background-image: linear-gradient(to right, #ffea9e, #fa9785, #73b2f3 );
+  background-image: linear-gradient(to right, #73b2f3,  #fa9785, #ffea9e );
   background-size: 100% 100%;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -195,6 +200,12 @@ input[type="range"] {
     text-align: center;
 }
 
+ul {
+  padding-left: 10px;
+  line-height: 21px;
+  list-style: none;
+}
+
 .review {
   padding:20px;
   box-shadow: 1px 2px 3px #29125f;
@@ -202,7 +213,7 @@ input[type="range"] {
   margin-bottom: 20px;
 }
 
-#chakraForm, .description {
+#chakraForm, .description, .chakraForm {
   padding:16px;
   box-shadow: 1px 2px 3px #29125f;
   border-radius: 6px;
@@ -237,7 +248,7 @@ h2 {
 }
 
 p {
-    font-size:17px;
+    font-size:16px;
     color: white;
 }
 label {
@@ -256,7 +267,7 @@ label {
   padding: 16px;
 }  
 .instruction {
-  font-weight: bold;
+  font-weight: normal;
   font-size:16px;
 }
 
@@ -391,4 +402,114 @@ label {
     color: white;
     background: #210c54;
     text-transform: uppercase;
+}
+
+/* Font style referance */
+
+.poppins-thin, label {
+  font-family: "Poppins", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light, input, button {
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular, details p, .instruction, p {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium, details summary, h2 {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold, figure figcaption {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold , .review h2 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black, .advanced {
+  font-family: "Poppins", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic, .head {
+  font-family: "Poppins", serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic, #chakraCards p strong{
+  font-family: "Poppins", serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic, .headi {
+  font-family: "Poppins", serif;
+  font-weight: 900;
+  font-style: italic;
 }
