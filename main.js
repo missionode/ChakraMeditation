@@ -221,6 +221,7 @@ const chakras = [
       visualimage: "image/Recraft/Sacral/sense-of-pleasure-elixir.png",
       visualname: "Sense of sexuality",
       mantra: "वं",
+      audio: "audio/Vam.aac",
       location: "below the navel",
       color: "orange",
       colorcode: "#FF4500",
@@ -234,6 +235,7 @@ const chakras = [
       visualimage: "image/Recraft/Solar/sense-of-sight-elixir.png",
       visualname: "Sense of sight",
       mantra: "रं",
+      audio: "audio/Ram.aac",
       location: "Abdomen",
       color: "yellow",
       colorcode: "#FFD700",
@@ -247,6 +249,7 @@ const chakras = [
       visualimage: "image/Recraft/Heart/sense-of-touch-elixir.png",
       visualname: "Sense of touch",
       mantra: "यं",
+      audio: "audio/Yam.aac",
       location: "Chest",
       color: "green",
       colorcode: "#90EE90",
@@ -260,6 +263,7 @@ const chakras = [
       visualimage: "image/Recraft/Throat/-sense-of-sound-elixir.png",
       visualname: "Sense of hearing",
       mantra: "हं",
+      audio: "audio/Ham.aac",
       location: "Throat",
       color: "blue",
       colorcode: "#87CEFF",
@@ -273,6 +277,7 @@ const chakras = [
       visualimage: "image/Recraft/Third-eye/the-sense-of-intuition-elixir.png",
       visualname: "Sense of Intuition",
       mantra: "शं",
+      audio: "audio/Om.aac",
       location: "Between the eyebrows",
       color: "indigo",
       colorcode: "#4B0082",
@@ -286,6 +291,7 @@ const chakras = [
       visualimage: "image/Recraft/Crown/sense-of-knowing-elixir.png",
       visualname: "Transcendence",
       mantra: "ॐ",
+      audio: "audio/Aum.aac",
       location: "Top of the head",
       color: "violet",
       colorcode: "#D8BFD8",
@@ -341,6 +347,12 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
       <p><strong>Power: ${chakra.feature}</strong></p>
       <p><strong>Element: ${chakra.element}</strong></p>
       <p><strong>Description: ${chakra.description}</strong></p>
+      <div style="margin-top:20px;" class="audio-player-container">
+			<audio controls="true" loop="true" class="mantra-audio">
+				<source src="${chakra.audio}">
+				Your browser does not support the audio element.
+			</audio>
+		</div>
       <button class="timer-button" data-timer="${timer}">${timer} Minute Timer</button>
     `;
 
@@ -355,6 +367,60 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
   section.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// fade the audio for smooth transition 
+const audio = document.querySelector('.mantra-audio');
+
+  audio.addEventListener('play', () => {
+    fadeIn(audio, 1000); // Fade in over 1 second (1000 milliseconds)
+  });
+
+  audio.addEventListener('ended', () => {
+    // Optional: You might want to do something after the audio ends,
+    // like resetting the volume or preparing for the next track.
+  });
+
+  // Fade out when the audio is paused or the user navigates away
+  audio.addEventListener('pause', () => {
+    fadeOut(audio, 1000); // Fade out over 1 second
+  });
+  window.addEventListener('beforeunload', () => {
+    fadeOut(audio, 1000); // Fade out over 1 second
+  });
+
+  function fadeIn(audio, duration) {
+    const startVolume = audio.volume; // Store the initial volume (e.g., if it was already modified)
+    audio.volume = 0; // Start at 0 volume
+    audio.play();  // Ensure the audio starts playing even at 0 volume.
+    let currentVolume = 0;
+    const interval = 50; // Adjust the interval for smoother or faster fading.
+    const steps = duration / interval;
+
+    const fadeInterval = setInterval(() => {
+      currentVolume += startVolume/steps;
+      audio.volume = Math.min(currentVolume, startVolume); // Don't exceed the original volume
+      if (currentVolume >= startVolume) {
+        clearInterval(fadeInterval);
+      }
+    }, interval);
+  }
+
+  function fadeOut(audio, duration) {
+    const startVolume = audio.volume;
+    let currentVolume = startVolume;
+    const interval = 50;
+    const steps = duration / interval;
+
+    const fadeInterval = setInterval(() => {
+      currentVolume -= startVolume/steps;
+      audio.volume = Math.max(currentVolume, 0); // Don't go below 0 volume
+      if (currentVolume <= 0) {
+        clearInterval(fadeInterval);
+        audio.pause(); // Pause the audio at the end of the fade-out
+        audio.volume = startVolume; // Reset the volume if needed.
+      }
+    }, interval);
+  }
 
 
 // lightbox Plugin 
