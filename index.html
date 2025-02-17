@@ -265,25 +265,24 @@
 			</figure>
 			
 		</div>
-		
-		
-		
-		<input class="submit" type="submit" value="Agree"/>
-	</form>
 
-	<div class="chakraForm">
+
 		<h2 style="margin-top: 20px;">For Advanced Practitioner</h2>
-		<p>Select your current energy to practice , You can also set your current strength all at once</p>
+		<p style="text-align: left;">Select your current energy to practice , You can also set your current strength all at once</p>
 		<div>
 			<select name="" id="energylevel">
 				<option value="1">Weak</option>
 				<option value="6">Strong</option>
 				<option value="11">Stronger</option>`
 			</select>
-			<input class="EnergySpot" onclick="SetEnergy(document.getElementById('energylevel').value)" value="Set Energy" type="button">
+			<input style="background-color: #674aeb;" class="EnergySpot" onclick="SetEnergy(document.getElementById('energylevel').value)" value="Set Energy" type="button">
 		</div>
-	
-	</div>
+		
+		
+		
+		<input style="margin-top: 40px;" class="submit" type="submit" value="Agree"/>
+	</form>
+
 	
 	
 	<div id="chakraCards"></div>
@@ -296,6 +295,7 @@
 	</div>
 	
 	<!-- Timer  -->
+	<h1 class="ForAdvanced">For experts</h1>
 	<div class="review">
 		<div class="audio-player-container">
 			<audio controls id="Full-sound">
@@ -303,6 +303,7 @@
 			  Your browser does not support the audio element.
 			</audio>
 		</div>
+		
 		<p class="takeme">1 Hour Meditation</p>
 	</div>
 	<div class="review">
@@ -345,7 +346,7 @@
 
 	</div>
 	
-	<audio controls volume="0.5" id="beep-sound" style="display:none">
+	<audio controls volume="0.2" id="beep-sound" style="display:none">
 		<source src="audio/temple-bells-277268.mp3" loop="true" >
 		Your browser does not support the audio element.
 	</audio>

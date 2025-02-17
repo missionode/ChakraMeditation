@@ -394,6 +394,11 @@ label {
   box-shadow: none;
 }
 
+.ForAdvanced {
+  color: #fff;
+  text-align: center;
+}
+
 .timer-button {
   font-size: 16px;
     padding: 10px 20px;
@@ -454,7 +459,7 @@ label {
   font-style: normal;
 }
 
-.poppins-black, .advanced {
+.poppins-black, .advanced, .ForAdvanced {
   font-family: "Poppins", serif;
   font-weight: 900;
   font-style: normal;

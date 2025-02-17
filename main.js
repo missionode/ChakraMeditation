@@ -208,6 +208,7 @@ const chakras = [
     mantra: "लं",
     audio: "audio/Lam.aac",
     location: "Base",
+    associated:"Sense of Smell, Sense Of Security, Stability, Sense of responsibility",
     color: "red",
     colorcode: "#DC143C",
     element: "Earth",
@@ -223,6 +224,7 @@ const chakras = [
       mantra: "वं",
       audio: "audio/Vam.aac",
       location: "below the navel",
+      associated:"Sexuality, Sense of taste, Creativity, Emotions",
       color: "orange",
       colorcode: "#FF4500",
       element: "Water",
@@ -237,6 +239,7 @@ const chakras = [
       mantra: "रं",
       audio: "audio/Ram.aac",
       location: "Abdomen",
+      associated:"Sense of Sight, Personal Power, Will power, Self Esteem",
       color: "yellow",
       colorcode: "#FFD700",
       element: "Fire",
@@ -251,6 +254,7 @@ const chakras = [
       mantra: "यं",
       audio: "audio/Yam.aac",
       location: "Chest",
+      associated:"Sense of touch, Center of our Love, Compassion, Self Esteem",
       color: "green",
       colorcode: "#90EE90",
       element: "Air",
@@ -265,6 +269,7 @@ const chakras = [
       mantra: "हं",
       audio: "audio/Ham.aac",
       location: "Throat",
+      associated:"Sense of Hearing, Communication, Self Expression, Truth",
       color: "blue",
       colorcode: "#87CEFF",
       element: "Ether",
@@ -279,6 +284,7 @@ const chakras = [
       mantra: "शं",
       audio: "audio/Om.aac",
       location: "Between the eyebrows",
+      associated:"Sense Of intuition, Inner vision, Wisdom, Insight",
       color: "indigo",
       colorcode: "#4B0082",
       element: "light",
@@ -293,6 +299,7 @@ const chakras = [
       mantra: "ॐ",
       audio: "audio/Aum.aac",
       location: "Top of the head",
+      associated:"Transcendence, Connection with divine, Higher Consciousness, Enlightenment",
       color: "violet",
       colorcode: "#D8BFD8",
       element: "thought",
@@ -334,11 +341,11 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
       <h2 style="color:${chakra.colorcode}">${chakra.name}</h2>
       <div class="figure-container">
       <figure>
-        <img class="chakraImage" onclick="openLightbox('${chakra.image}')" src="${chakra.image}">
+        <img class="chakraImage"  src="${chakra.image}">
         <figcaption>${chakra.name}</figcaption>
       </figure>
       <figure>
-        <img onclick="openLightbox('${chakra.visualimage}')" src="${chakra.visualimage}" alt="${chakra.visualname}">
+        <img src="${chakra.visualimage}" alt="${chakra.visualname}">
         <figcaption>${chakra.visualname}</figcaption>
         </figure>
       </div>
@@ -347,13 +354,14 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
       <p><strong>Power: ${chakra.feature}</strong></p>
       <p><strong>Element: ${chakra.element}</strong></p>
       <p><strong>Description: ${chakra.description}</strong></p>
+      <p> ${chakra.associated}</p>
       <div style="margin-top:20px;" class="audio-player-container">
-			<audio controls="true" loop="true" class="mantra-audio">
-				<source src="${chakra.audio}">
-				Your browser does not support the audio element.
-			</audio>
-		</div>
-      <button class="timer-button" data-timer="${timer}">${timer} Minute Timer</button>
+        <audio controls="true" loop="true" class="mantra-audio">
+          <source src="${chakra.audio}">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <button style="background:${chakra.colorcode}" class="timer-button" data-timer="${timer}">${timer} Minute Timer</button>
     `;
 
     chakraCardsContainer.appendChild(chakraCard);
@@ -361,11 +369,18 @@ document.getElementById("chakraForm").addEventListener("submit", function (event
     // Show the timer when meditation is over 
     
     Timer()
+
+  const formChakr = document.getElementById('chakraForm');
+  formChakr.style.display = "none"
     
   // Navigate to the chakra cards
   const section = document.getElementById('chakraCards');
   section.scrollIntoView({ behavior: 'smooth' });
   });
+ 
+
+
+  
 });
 
 
