@@ -153,7 +153,7 @@ function chakra(route) {
   Universe.name = "syam";
   Universe.vehicle = "lingam";
   Universe.planet = "Prithvi";
-  Universe.target = "Moon";
+  Universe.target = "jupiter";
   Universe.landpad = "yoni";
   Universe.launch = function(){
       Universe.do = Universe.name + " rides his " + Universe.vehicle + " to " + Universe.target + "'s " + Universe.landpad;
