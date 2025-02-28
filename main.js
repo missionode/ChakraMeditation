@@ -604,37 +604,78 @@ function SetEnergy(energyvalue) {
 }
 
 // TO THE SESSION
-  // Your JavaScript code here
+
+document.addEventListener('DOMContentLoaded', () => {
   const startSessionBtn = document.getElementById('startSessionBtn');
   const endSessionBtn = document.getElementById('endSessionBtn');
   const elapsedTimeDisplay = document.getElementById('elapsedTime');
 
-let startTime;
-let timerInterval;
+  let startTime = localStorage.getItem('startTime');
+  let isSessionActive = localStorage.getItem('isSessionActive') === 'true';
+  let timerInterval;
 
-startSessionBtn.addEventListener('click', () => {
-    startTime = Date.now();
-    startSessionBtn.classList.add('hidden');
-    endSessionBtn.classList.remove('hidden');
-    localStorage.setItem('startTime', startTime);
+  if (startTime && isSessionActive) {
+      startTime = parseInt(startTime);
+      startSessionBtn.classList.add('hidden');
+      endSessionBtn.classList.remove('hidden');
 
-    timerInterval = setInterval(() => {
-        const currentTime = Date.now();
-        const elapsedMilliseconds = currentTime - startTime;
-        const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
-        const minutes = Math.floor(elapsedSeconds / 60);
-        const seconds = elapsedSeconds % 60;
+      timerInterval = setInterval(() => {
+          const currentTime = Date.now();
+          const elapsedMilliseconds = currentTime - startTime;
+          const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+          const minutes = Math.floor(elapsedSeconds / 60);
+          const seconds = elapsedSeconds % 60;
 
-        elapsedTimeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }, 1000); // Update every 1 second
+          elapsedTimeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }, 1000);
+  }
+
+  startSessionBtn.addEventListener('click', () => {
+      startTime = Date.now();
+      startSessionBtn.classList.add('hidden');
+      endSessionBtn.classList.remove('hidden');
+      localStorage.setItem('startTime', startTime);
+      localStorage.setItem('isSessionActive', true);
+
+      timerInterval = setInterval(() => {
+          const currentTime = Date.now();
+          const elapsedMilliseconds = currentTime - startTime;
+          const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+          const minutes = Math.floor(elapsedSeconds / 60);
+          const seconds = elapsedSeconds % 60;
+
+          elapsedTimeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }, 1000);
+  });
+
+  endSessionBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      localStorage.setItem('duration', duration);
+      localStorage.removeItem('startTime');
+      localStorage.removeItem('isSessionActive');
+      window.location.href = `invoice.html?duration=${duration}`;
+  });
 });
 
-endSessionBtn.addEventListener('click', () => {
-    clearInterval(timerInterval); // Stop the timer
-    const endTime = Date.now();
-    const duration = endTime - startTime;
-    localStorage.setItem('duration', duration);
-    window.location.href = `invoice.html?duration=${duration}`;
+
+// Rejoin session
+
+document.addEventListener('DOMContentLoaded', () => {
+  const rejoinSessionBtn = document.getElementById('rejoinSessionBtn');
+  const isSessionActive = localStorage.getItem('isSessionActive') === 'true';
+
+  if (isSessionActive) {
+      rejoinSessionBtn.style.display = 'block';
+  } else {
+      rejoinSessionBtn.style.display = 'none';
+  }
+
+  rejoinSessionBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+  });
 });
+
 
 
