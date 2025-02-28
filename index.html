@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inner Sanctum - Chakra Meditation</title>
     <style>
+        @font-face {
+            font-family: 'Sugar Magic - Personal Use Only';
+            src: url('SugarMagicPersonalUseOnly.woff2') format('woff2'),
+            url('SugarMagicPersonalUseOnly.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -100,6 +109,20 @@
         .title-holder {
             text-align: center;
         }
+        .title-holder h2 {
+            font-family: 'Sugar Magic - Personal Use Only';
+            font-size: large;
+        }
+
+        .loading {
+            animation: pulse 2s infinite ease-in-out;
+            text-align: center;
+            font-style: vertical;
+            color: white;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            font-family: 'Courier New', Courier, monospace;
+        }
     </style>
 </head>
 
@@ -107,10 +130,12 @@
     <div class="splash-container">
         <div class="chakra-symbol">
             <img src="image/Readdy/mysterious-flower.jpg" alt="Chakra Symbol">
+           
         </div>
         <div class="loader">
             <div class="loader-inner"></div>
         </div>
+        <p class="loading">Loading..</p>
         <div class="title-holder">
             <img src="image/Aura-link.png" alt="">
             <h2 style="color: white; font-size: medium; font-weight: 600;">Awaken the Self.</h2>
@@ -119,7 +144,7 @@
     <script>
         setTimeout(() => {
           window.location.href = "studio.html";
-        }, 3000);
+        }, 36000);
       </script>
 </body>
 
