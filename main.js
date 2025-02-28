@@ -68,7 +68,7 @@ function chakra(route) {
 
       Tejovalayam() {
           console.log("Godmode is active for", this.god, "have complete access of the system");
-          console.log("Full armour protection active for", this.god + "'s beloved and", this.devotee);
+          console.log("Full armour protection active for", this.god + ", " + this.god + "'s beloved and", this.devotee + 's');
           console.log("Sudarshanam is", this.godmode);
       }
 
@@ -220,7 +220,7 @@ function chakra(route) {
   }
 };
 
-window.onload = chakra(['Loka']);
+window.onload = chakra(['Syam']);
 
 
 
