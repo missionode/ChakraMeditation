@@ -156,6 +156,43 @@ details,div#private {
 }
 
 
+.tab-container {
+  width: 100%; /* Adjust width as needed */ 
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.tab-menu {
+  display: flex;
+  border-bottom: 1px solid #dcdada;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: transparent;
+  border-bottom: 2px solid transparent; /* Initially transparent */
+  transition: border-bottom 0.3s ease;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid blue; /* Active tab underline */
+  background-color: blue;
+  border-radius: 3px 3px 0 0;
+}
+
+.tab-content {
+  padding: 20px;
+  display: none; /* Initially hide all content */
+}
+
+.tab-content.active {
+  display: block; /* Show active content */
+}
+
+
 
 #energylevel {
   font-size: 19px;
