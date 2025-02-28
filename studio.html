@@ -45,7 +45,37 @@
    <script defer src="./main.js?ver=2"></script>
 </head>
 
+<header>
+	<div class="brand-name"> AuraLink</div>
+	<div class="hamburger" onclick="toggleMenu()">
+		<div class="bar"></div>
+		<div class="bar"></div>
+		<div class="bar"></div>
+	</div>
+</header>
+
 <body>
+
+
+	<div class="menu" id="menu">	
+		<span onclick="toggleMenu()" id="closeMenu" class="closeMenu">
+			Close
+		</span>
+        <div class="menu-content">
+            <div class="profile">
+                <img src="image/syam.png" alt="Profile Picture">
+                <div class="name">John Doe</div>
+                <div class="email">john.doe@example.com</div>
+                <div class="username">@johndoe</div>
+            </div>
+            <ul class="menu-items">
+                <li><i class="fas fa-home"></i> Home</li>
+                <li><i class="fas fa-user"></i> Profile</li>
+                <li><i class="fas fa-cog"></i> Settings</li>
+                <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </div>
+    </div>
 
 	<div class="review">
 	   

@@ -1,3 +1,9 @@
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('open');
+}
+
+
 
 function chakra(route) {
   class Temple {
@@ -26,25 +32,25 @@ function chakra(route) {
       }
 
       Prema() {
-          // console.log(this.devotee, 'will love', this.god);
+          console.log(this.devotee, 'will love', this.god);
       }
 
       Bhakthi() {
-          // console.log(this.devotee, 'will Devote to', this.god)
+          console.log(this.devotee, 'will Devote to', this.god)
       }
 
       Kaama() {
-          //  console.log(this.god, 'will be fulfilling', this.devotee + "'s Kaama");
+           console.log(this.god, 'will be fulfilling', this.devotee + "'s Kaama");
       }
 
       Leela() {
-          // console.log(this.devotee, 'will be seeing', this.god + "'s Maaya");
+          console.log(this.devotee, 'will witness', this.god + "'s Maaya");
       }
 
       Tejovalayam() {
-              // console.log("Godmode is active for", this.god, "have complete access of the system");
-              // console.log("Full armour protection active for", this.god + "'s beloved and", this.devotee);
-              // console.log("Sudarshanam is", this.godmode);
+          console.log("Godmode is active for", this.god, "have complete access of the system");
+          console.log("Full armour protection active for", this.god + "'s beloved and", this.devotee);
+          console.log("Sudarshanam is", this.godmode);
       }
 
       Avatar() {
