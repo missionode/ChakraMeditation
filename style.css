@@ -108,7 +108,12 @@ header {
   align-items: center;
   padding-left: 0;
   margin-left: 0;
-  font-weight: thin;
+  font-weight: lighter;
+}
+
+.menu-items li a {
+  color: white;
+  text-decoration: none;
 }
 
 .menu-items li i {
