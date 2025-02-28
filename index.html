@@ -1,354 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-   <title>Chakra meditation</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> <!-- Icons and Colors -->
-   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-   <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-   <link rel="manifest" href="./manifest.json">
-   <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#3E3EEB">
-   <link rel="shortcut icon" href="./favicon.ico">
-   <meta name="msapplication-TileColor" content="#3E3EEB">
-   <meta name="msapplication-TileImage" content="./mstile-144x144.png">
-   <meta name="msapplication-config" content="./browserconfig.xml">
-   <meta name="theme-color" content="#3E3EEB">
-   
-   <!-- SEO and Social Sharing and SEO -->
-   <meta name="description" content="Simple Chakra Tune Web App" />
-   <meta name="robots" content="noodp" />
-   <meta name="author" content="Syam">
-   <meta name="keywords" content="Chakra Meditation Web" />
-   <meta property="og:locale" content="en_US" />
-   <meta property="og:type" content="website" />
-   <meta property="og:title" content="Chakra Meditation PWA" />
-   <meta property="og:description" content="Simple Chakra Tune Web App" />
-   <meta property="og:url" content="https://bodhiintellect.com/Chakra" />
-   <meta property="og:site_name" content="Simple Chakra Meditation PWA" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inner Sanctum - Chakra Meditation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(13, 1, 42);
+            /* Deep violet background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent scrollbars */
+        }
 
-   <!-- Styles -->
-   <link rel="stylesheet" href="style.css?ver=3">
+        . .splash-container {
+            text-align: center;
+        }
 
-   <!-- Javscript -->
-   <script>
-	   if ("serviceWorker" in navigator) {
-		   window.addEventListener("load", () => {
-			   navigator.serviceWorker && navigator.serviceWorker.register("./sw.js");
-		   });
-	   }
-   </script>
-   <script defer src="./main.js?ver=2"></script>
+        .chakra-symbol {
+            width: 300px;
+            /* Adjust size as needed */
+            height: 300px;
+            /* Adjust size as needed */
+            margin-bottom: 30px;
+            animation: pulse 2s infinite ease-in-out;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        .chakra-symbol img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(100, 50, 150, 0.7));
+            /* Subtle glow */
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(100, 50, 150, 0.3);
+            /* Lighter violet border */
+            border-top: 5px solid rgba(100, 50, 150, 0.8);
+            /* Brighter violet top */
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            margin: 20px auto;
+        }
+
+        .loader-inner {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: relative;
+            top: 10px;
+            left: 10px;
+            border: 3px solid rgba(200, 150, 250, 0.3);
+            border-top: 3px solid rgba(200, 150, 250, 0.8);
+            animation: spinInner 1s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinInner {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .title-holder {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-
-	<div class="review">
-	   
-	   <h2>How to Meditate in Easy Steps</h2>
-	   
-		<details id="duet">
-			<summary> How to Meditate </summary>
-			<div dir="ltr" style="--animation-duration: 600ms;">
-				<h2>Chakra Meditation Program</h2>
-				<p>Welcome to your personalized Chakra Meditation Program! This program is designed to help you balance and strengthen your chakras through guided meditation.</p>
-				<h3>1. Chakra Assessment:</h3>
-				<p>Below, you'll find a progress bar for each of the seven chakras.  Please rate your current perceived strength for each chakra on a scale of Weak Strong or Strongest based on your self evaluation.  After selecting your strength for each chakra, you'll see a brief description of the energies associated with that chakra.</p>
-				<h4>2. Personalized Meditation Schedule:</h4>
-				<p>Based on your chakra assessment, a personalized meditation schedule will be generated. This schedule will suggest specific meditation techniques and durations tailored to address your weaker chakras and promote overall balance.  The schedule will include the time for each meditation session.</p>
-				<h4>3. Guided Meditation Practice:</h4>
-				<ul>
-					<li>Preparation: Find a comfortable and quiet space where you won't be disturbed. Sit comfortably, either on a cushion or chair, with your spine straight. Close your eyes gently.</li>
-					<li>Focus on Breath: Bring your awareness to your breath, noticing the natural rhythm of inhalation and exhalation.</li>
-					<li>Body Awareness: Gently scan your body, noticing any sensations without judgment.</li>
-					<li>Visualization: You can visualize yourself in a sacred space, a peaceful natural setting, or as a radiant object. Alternatively, for enhanced results, you can visually meditate on the Elixir bottles (if applicable).</li>
-					<li>Chakra Focus: Follow the guidance provided in your personalized schedule, focusing on the specific chakra(s) for that session. You can use visualizations, affirmations, or chanting to support your practice.</li>
-					<li>Integration: After your meditation, take a few moments to integrate the experience. Carry the sense of peace and balance with you throughout your day.</li>
-
-				</ul>
-			</div>
-		</details>
-		
-   </div>
-   <div class="description">
-	<h1 class="advanced"><span style="color:#fde09b;">Advanced Meditation</span></h1>
-		<h2 class="head">How to successfully meditate</h2>
-		<h3 class="headi">Tips for successfull meditation</h4>
-			<p class="instruction">
-				During meditation, it's normal for many thoughts to arise.  Don't resist them, as this can cause them to accumulate. Instead, allow them to come and go freely. If a particular thought persists and requires an answer, give it the answer you believe is right, one that brings you comfort. This can help release you from that thought. By continuing this practice, you'll eventually be freed from all your questions and confusions.  Once you reach this point, you'll be able to align your chakras, resulting in a vibrant and exciting aura.
-			</p>
-		
-	</div>
-	
-	<form id="chakraForm">
-		<label for="root">Root Chakra (Muladhara):</label>
-	   <input class="ival" type="range" id="root" min="1" max="11" value="11" required>
-	   <div class="container-cunt">
-		   <div class="left">Weak</div>
-		   <div class="center">Strong</div>
-		   <div class="right">Stronger</div>
-		</div>
-		<div class="figure-container">
-			<figure>
-				<img src="image/Recraft/Root/sense-of-smell-smelling-elixir-.png" alt="Sense of Smell">
-				<figcaption>* Sense of Smell</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Root/sense-of-security--smelling-elixir-.png" alt="Our Sense Of Security">
-				<figcaption>Sense Of Security</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Root/sense-of-stability--smelling-elixir-.png" alt="Stability">
-				<figcaption>Stability</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Root/elixir-of-responsibility.png" alt="Responsibility">
-				<figcaption>Sense of responsibility</figcaption>
-			</figure>
-		</div>
-		<!-- Repeat the above structure for other chakras -->
-		<label for="sacral">Sacral chakra (Svadhishthana):</label>
-		<input class="ival" type="range" id="sacral" min="1" max="11" value="11" required>
-		<div class="container-cunt">
-			<div class="left">Weak</div>
-			<div class="center">Strong</div>
-			<div class="right">Stronger</div>
-	</div>
-	<div class="figure-container">
-		<figure>
-			<img src="image/Recraft/Sacral/sense-of-pleasure-elixir.png" alt="Sexuality">
-			<figcaption>* Sexuality</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Sacral/sense-of-taste--elixir-.png" alt="Sense of taste">
-			<figcaption>Sense of taste</figcaption>
-		</figure>
-		<figure>
-		  <img src="image/Recraft/Sacral/center-of-our-creativity--elixir-.png" alt="center Of Creativity">
-		  <figcaption>Creativity</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Sacral/sense-of-emotions-elixir.png" alt="Emotions">
-			<figcaption>Emotions</figcaption>
-		</figure>
-	</div>
-	<label for="solar">Solar plexus chakra (Manipura):</label>
-	<input class="ival" type="range" id="solar" min="1" max="11" value="11" required>
-	<div class="container-cunt">
-		<div class="left">Weak</div>
-		<div class="center">Strong</div>
-		<div class="right">Stronger</div>
-	</div>
-	<div class="figure-container">
-		<figure>
-			<img src="image/Recraft/Solar/sense-of-sight-elixir.png" alt="Sense of sight">
-			<figcaption>* Sense of Sight</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Solar/center-of-our-personal-power-elixir.png" alt="Center Of personal power">
-		  <figcaption>Personal Power</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Solar/center-of-our-will-power-elixir.png" alt="will power">
-			<figcaption>Will power</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Solar/center-of-our-self-esteem-elixir.png" alt="Self esteem">
-			<figcaption>Self Esteem</figcaption>
-		</figure>
-	</div>
-	   <label for="heart">Heart chakra (Anahata):</label>
-	   <input class="ival" type="range" id="heart" min="1" max="11" value="11" required>
-	   <div class="container-cunt">
-			<div class="left">Weak</div>
-			<div class="center"><S></S>trong</div>
-			<div class="right">Stronger</div>
-		</div>
-		<div class="figure-container">
-			<figure>
-				<img src="image/Recraft/Heart/sense-of-touch-elixir.png" alt="Sense of touch">
-		  <figcaption>* Sense of touch</figcaption>
-		</figure>
-		<figure>
-		  <img src="image/Recraft/Heart/center-of-our-love-elixir.png" alt="Center of our love">
-		  <figcaption>Center of our Love</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Heart/sense-of-compassion-elixir.png" alt="Compassion">
-			<figcaption>Compassion</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Heart/-elixir.png" alt="Self forgiveness">
-			<figcaption>Self Esteem</figcaption>
-		</figure>
-	</div>
-	
-	<label for="throat">Throat chakra (Vishuddha):</label>
-	<input class="ival" type="range" id="throat" min="1" max="11" value="11" required>
-	<div class="container-cunt">
-		<div class="left">Weak</div>
-		<div class="center">Strong</div>
-		<div class="right">Stronger</div>
-	</div>
-	<div class="figure-container">
-		<figure>
-			<img src="image/Recraft/Throat/-sense-of-sound-elixir.png" alt="Sense of Hearing">
-			<figcaption>* Sense of Hearing</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Throat/center-of-our-communication-elixir.png" alt="Center of our communication">
-			<figcaption>Communication</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Throat/self-expression-elixir.png" alt="Self Expression">
-			<figcaption>Self Expression</figcaption>
-		</figure>
-		<figure>
-			<img src="image/Recraft/Throat/truth-elixir.png" alt="Truth">
-			<figcaption>Truth</figcaption>
-		</figure>
-		</div>
-	   <label for="third">Third eye chakra (Ajna):</label>
-	   <input  class="ival" type="range" id="third" min="1" max="11" value="11" required>
-	   <div class="container-cunt">
-			<div class="left">Weak</div>
-			<div class="center">Strong</div>
-			<div class="right">Stronger</div>
-		</div>
-		<div class="figure-container">
-			<figure>
-				<img src="image/Recraft/Third-eye/the-sense-of-intuition-elixir.png" alt="Sense Of intuition">
-				<figcaption>* Sense Of intuition</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Third-eye/center-of-our-inner-vision-elixir.png" alt="Center Of truth">
-				<figcaption>Inner vision</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Third-eye/wisdom-elixir.png" alt="Wisom">
-				<figcaption>Wisdom</figcaption>
-			</figure>
-			<figure>
-				<img onclick="openLightbox('image/Recraft/Third-eye/insight-elixir.png')" src="image/Recraft/Third-eye/insight-elixir.png" alt="Insight">
-				<figcaption>Insight</figcaption>
-			</figure>
-			
-		</div>
-		
-		<label for="crown">Crown chakra (Sahasrara):</label>
-		<input class="ival" type="range" id="crown" min="1" max="11" value="11" required>
-	   <div class="container-cunt">
-			<div class="left">Weak</div>
-			<div class="center">Strong</div>
-			<div class="right">Stronger</div>
-		</div>
-		<div class="figure-container">
-			<figure>
-				<img src="image/Recraft/Crown/sense-of-knowing-elixir.png" alt="Sense of Knowing">
-				<figcaption>* Transcendence</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Crown/center-of-our-connection-to-the-divine-elixir.png" alt="Connection with divine">
-				<figcaption>Connection with divine</figcaption>
-			</figure>
-			<figure>
-				<img  src="image/Recraft/Crown/higher-consciousness-elixir.png" alt="Higher Consciousness">
-				<figcaption>Higher Consciousness</figcaption>
-			</figure>
-			<figure>
-				<img src="image/Recraft/Crown/enlightenment-elixir.png" alt="Enlightenment">
-				<figcaption>Enlightenment</figcaption>
-			</figure>
-			
-		</div>
-
-
-		<h2 style="margin-top: 20px;">For Advanced Practitioner</h2>
-		<p style="text-align: left;">Select your current energy to practice , You can also set your current strength all at once</p>
-		<div>
-			<select name="" id="energylevel">
-				<option value="1">Weak</option>
-				<option value="6">Strong</option>
-				<option value="11">Stronger</option>`
-			</select>
-			<input style="background-color: #674aeb;" class="EnergySpot" onclick="SetEnergy(document.getElementById('energylevel').value)" value="Set Energy" type="button">
-		</div>
-		
-		
-		
-		<input style="margin-top: 40px;" class="submit" type="submit" value="Agree"/>
-	</form>
-
-	
-	
-	<div id="chakraCards"></div>
-	
-	 <div id="lightbox" class="lightbox">
-		<div class="lightbox-content">
-			<span class="close-button">&times;</span>
-			<img id="lightbox-image" src="" alt="">
-		</div>
-	</div>
-	
-	<!-- Timer  -->
-	<h1 class="ForAdvanced">For experts</h1>
-	<div class="review">
-		<div class="audio-player-container">
-			<audio controls id="Full-sound">
-			  <source src="audio/chakra.webm" >
-			  Your browser does not support the audio element.
-			</audio>
-		</div>
-		
-		<p class="takeme">1 Hour Meditation</p>
-	</div>
-	<div class="review">
-		<details id="duet">
-			<summary> Understanding Aura <span style="color:fa9785;">*</span></summary>
-			<p>Once you have programmed your chakras, now you need to connect the chakras to your Aura</p>
-			<p>Aura is the rendering engine. By Meditating on the Aura chakra you can connect your Aura effectively</p>
-			
-			<div dir="ltr" >
-				<figure class="pro">
-					<img onclick="openLightbox('image/Aura/AuraCHAKRAzoom.png')" src="image/Aura/Aura-chakra.png" alt="Chakrayoga">
-				</figure>
-			</div>
-		</details>
-		
-		<div style="margin-top:20px;" class="audio-player-container">
-			<audio controls id="Full-sound">
-				<source src="audio/Windofaura.mp3" >
-				Your browser does not support the audio element.
-			</audio>
-		</div>
-		<p class="takeme">Aura Meditation</p>
-
-
-		<details id="private" style="display:none">
-			<summary class=""> Modern Chakra Symbol <span style="color:fa9785;">*</span></summary>
-			<div dir="ltr" >
-				<figure class="programmed">
-					<img onclick="openLightbox('image/Chakra/Chakrayoga.png')" src="image/Chakra/Chakrayoga.png" alt="Chakrayoga">
-				</figure>
-			</div>
-			<div style="margin-top:20px;" class="audio-player-container">
-				<audio controls id="Full-sound">
-					<source src="audio/breathing.mp3" loop="true" >
-					Your browser does not support the audio element.
-				</audio>
-			</div>
-			<p class="takeme">Chakrayoga Meditation</p>
-		</details>
-
-	</div>
-	
-	<audio controls volume="0.2" id="beep-sound" style="display:none">
-		<source src="audio/temple-bells-277268.mp3" loop="true" >
-		Your browser does not support the audio element.
-	</audio>
+    <div class="splash-container">
+        <div class="chakra-symbol">
+            <img src="image/Readdy/mysterious-flower.jpg" alt="Chakra Symbol">
+        </div>
+        <div class="loader">
+            <div class="loader-inner"></div>
+        </div>
+        <div class="title-holder">
+            <img src="image/Aura-link.png" alt="">
+            <h2 style="color: white; font-size: medium; font-weight: 600;">Awaken the Self.</h2>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+          window.location.href = "studio.html";
+        }, 3000);
+      </script>
 </body>
+
 </html>
