@@ -7,6 +7,7 @@ body {
   padding-bottom: 30px;
 }
 
+
 header {
   background-color: #0d012a;
   color: white;
@@ -100,6 +101,21 @@ header {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.session_class {
+  padding: 0 20px;
+}
+
+#endSessionBtn {
+  width: 100%;
+  justify-content: space-between;
+  padding: 12px 10px;
+  background-color: #b5e48c;
+  color: black;
+}
+#endSessionBtn:not(.hidden) {
+  display: flex;
 }
 
 .menu-items li {
@@ -669,4 +685,21 @@ label {
   font-family: "Poppins", serif;
   font-weight: 900;
   font-style: italic;
+}
+
+
+li.profilelink a, li.profilelink svg {
+  color: #b5e48c;
+}
+
+li.profilelink svg {
+  fill: #b5e48c;;
+}
+
+li.profilelink span {
+  background: #28a745;
+  padding: 1px 10px;
+  font-size: 13px;
+  border-radius: 3px;
+  margin-left: 9px;
 }

@@ -603,5 +603,38 @@ function SetEnergy(energyvalue) {
   
 }
 
+// TO THE SESSION
+  // Your JavaScript code here
+  const startSessionBtn = document.getElementById('startSessionBtn');
+  const endSessionBtn = document.getElementById('endSessionBtn');
+  const elapsedTimeDisplay = document.getElementById('elapsedTime');
+
+let startTime;
+let timerInterval;
+
+startSessionBtn.addEventListener('click', () => {
+    startTime = Date.now();
+    startSessionBtn.classList.add('hidden');
+    endSessionBtn.classList.remove('hidden');
+    localStorage.setItem('startTime', startTime);
+
+    timerInterval = setInterval(() => {
+        const currentTime = Date.now();
+        const elapsedMilliseconds = currentTime - startTime;
+        const elapsedSeconds = Math.floor(elapsedMilliseconds / 1000);
+        const minutes = Math.floor(elapsedSeconds / 60);
+        const seconds = elapsedSeconds % 60;
+
+        elapsedTimeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000); // Update every 1 second
+});
+
+endSessionBtn.addEventListener('click', () => {
+    clearInterval(timerInterval); // Stop the timer
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    localStorage.setItem('duration', duration);
+    window.location.href = `invoice.html?duration=${duration}`;
+});
 
 
