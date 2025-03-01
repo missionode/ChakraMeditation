@@ -32,9 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } else {
         // NFC is not supported
-        // showPhoneInput();
-        alert("NFC not supported by your device");
+        alert("NFC not supported by your system")
     }
+
+   
+
+ 
+
 
 
 });
