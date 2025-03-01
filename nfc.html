@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Visiting Card</title>
+    <style>
+        body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #nfc-section,
+    #phone-section {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="tel"] {
+        width: calc(100% - 22px); /* Adjust for padding and border */
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%; /* Full width on mobile */
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        #nfc-section,
+        #phone-section {
+            padding: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div id="nfc-section">
+        <p>Tap your phone to an NFC tag.</p>
+    </div>
+    <div id="phone-section" style="display: none;">
+        <p>Enter phone number:</p>
+        <input type="tel" id="phone-number" placeholder="Enter phone number">
+        <button id="share-button">Share via WhatsApp</button>
+        <span><a style="margin-top: 30px;text-decoration: none;font-size: 12px; display: block;" href="studio.html">Back to Studio</a></span>
+    </div>
+    <img src="visiting-card.jpg" id="visiting-card-image" style="display: none;">
+    <script src="nfc_script.js"></script>
+</body>
+</html>
