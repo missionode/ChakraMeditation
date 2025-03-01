@@ -338,7 +338,7 @@ details.addEventListener("click", function() {
 });
 
 
-document.getElementById("chakraForm").addEventListener("submit", function (event) {
+document.getElementById("startSessionBtn").addEventListener("click", function (event) {
   event.preventDefault();
 
   const progressValues = Array.from(document.querySelectorAll("input[type='range']")).map((input) => parseInt(input.value));
