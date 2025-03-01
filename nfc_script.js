@@ -50,28 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function shareViaWhatsApp(phoneNumber) {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        const image = visitingCardImage;
-
-        image.onload = () => {
-            canvas.width = image.width;
-            canvas.height = image.height;
-            context.drawImage(image, 0, 0);
-
-            canvas.toBlob(blob => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const base64Image = reader.result.split(',')[1];
-                    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('My Digital Visiting Card: ')}&image=${base64Image}`;
-                    window.location.href = whatsappLink;
-                };
-                reader.readAsDataURL(blob);
-            });
-        };
-        if (image.complete) {
-            image.onload();
-        }
-
+        const imageUrl = 'https://missionode.github.io/ChakraMeditation/visiting-card.jpg'; // Replace with YOUR image URL
+        const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('My Digital Visiting Card: ')}&image=${encodeURIComponent(imageUrl)}`;
+        // console.log("whatsappLink", whatsappLink)
+       window.location.href = whatsappLink;
     }
+
+
+
 });
