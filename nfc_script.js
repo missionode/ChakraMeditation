@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const nfcSection = document.getElementById('nfc-section');
     const phoneSection = document.getElementById('phone-section');
-    const phoneNumberInput = document.getElementById('phone-number');
-    const shareButton = document.getElementById('share-button');
     const visitingCardImage = document.getElementById('visiting-card-image');
 
     if ('NDEFReader' in window) {
