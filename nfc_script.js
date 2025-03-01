@@ -32,30 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } else {
         // NFC is not supported
-        showPhoneInput();
+        // showPhoneInput();
+        alert("NFC not supported by your device");
     }
-
-    function showPhoneInput() {
-        nfcSection.style.display = 'none';
-        phoneSection.style.display = 'block';
-    }
-
-    shareButton.addEventListener('click', () => {
-        const phoneNumber = phoneNumberInput.value;
-        if (phoneNumber) {
-            shareViaWhatsApp(phoneNumber);
-        } else {
-            alert('Please enter a phone number.');
-        }
-    });
-
-    function shareViaWhatsApp(phoneNumber) {
-        const imageUrl = 'https://missionode.github.io/ChakraMeditation/visiting-card.jpg'; // Replace with YOUR image URL
-        const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent('My Digital Visiting Card: ')}&image=${encodeURIComponent(imageUrl)}`;
-        // console.log("whatsappLink", whatsappLink)
-       window.location.href = whatsappLink;
-    }
-
 
 
 });
