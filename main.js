@@ -1,29 +1,3 @@
-function toggleMenu() {
-  const menu = document.getElementById('menu');
-  menu.classList.toggle('open');
-}
-
-
-// tabmennu 
-const tabButtons = document.querySelectorAll('.tab-button');
-const tabContents = document.querySelectorAll('.tab-content');
-
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const tabId = button.dataset.tab;
-
-        // Remove active class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-
-        // Add active class to the clicked button and corresponding content
-        button.classList.add('active');
-        document.getElementById(tabId).classList.add('active');
-    });
-});
-
-
-
 function chakra(route) {
   class Temple {
       constructor(god, devotee) {
@@ -89,7 +63,7 @@ function chakra(route) {
 
       Ayurveda() {
           this.vaidya = this.Avatar();
-          // console.log(this.vaidya, "has aquired healing powers with Dhanwanthari mantra");
+          console.log(this.vaidya, "has aquired healing powers with Dhanwanthari mantra");
           for (var i = 0; i < 108; i++) {
               return this.tantra;
           }
@@ -222,6 +196,30 @@ function chakra(route) {
 
 window.onload = chakra(['Syam']);
 
+
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('open');
+}
+
+
+// tabmennu 
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const tabId = button.dataset.tab;
+
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to the clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    });
+});
 
 
 const chakras = [

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Calculate hourly rate and total amount
     const userSettings = JSON.parse(localStorage.getItem('userSettings')) || {};
     const hourlyRate = parseFloat(userSettings.rate) || 600; // Default to 600 if not set
-    hourlyRateDisplay.textContent = hourlyRate;
+    hourlyRateDisplay.textContent = hourlyRate + " (₹)";
 
     const durationHours = durationMilliseconds / (1000 * 60 * 60);
     const totalAmount = (durationHours * hourlyRate).toFixed(2);
