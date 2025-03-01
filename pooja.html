@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakthi Pooja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5e6cc;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #cc5500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff6f00;
+        }
+        select, input {
+            padding: 8px;
+            margin: 5px;
+        }
+        #poojaImage {
+            display: none;
+            max-width: 200px;
+            margin: 20px auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            #poojaImage {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pooja</h1>
+        
+        <div class="section">
+            <h3>Select Mode</h3>
+            <button onclick="poojaProgram.start('auto')">Auto Mode</button>
+            <button onclick="showManualOptions()">Manual Mode</button>
+            <a style="margin-top: 10px; display: block;" href="studio.html">Go to Studio</a>
+        </div>
+
+        <div class="section" id="manualOptions" style="display: none;">
+            <h2>Manual Selection</h2>
+            <select id="archanaSelect">
+                <option value="flowers">Flowers</option>
+                <option value="kumkum">Kumkum</option>
+                <option value="turmeric">Turmeric</option>
+            </select>
+            <select id="arathiSelect">
+                <option value="camphor">Camphor</option>
+                <option value="oil">Oil Lamp</option>
+                <option value="ghee">Ghee Lamp</option>
+            </select>
+            <button onclick="poojaProgram.start('manual')">Start Manual Pooja</button>
+        </div>
+
+        <img id="poojaImage" src="https://cdn.pixabay.com/photo/2012/04/13/20/24/lamp-33513_1280.png" alt="Diya Lamp">
+    </div>
+
+    <script>
+        // Base Pooja Object using prototypal inheritance
+        const Pooja = {
+            items: ['clothes', 'jewels', 'ornaments'],
+            ingredients: {
+                archana: ['flowers', 'kumkum', 'turmeric'],
+                arathi: ['camphor', 'oil', 'ghee']
+            },
+            
+            welcome: function() {
+                console.log("Welcome Devi to Shakthi Pooja");
+                console.log("May you feel relaxed and blessed");
+            },
+            
+            removeMaterials: function(callback) {
+                console.log("\nGently removing materials:");
+                let i = 0;
+                const removeNext = () => {
+                    if (i < this.items.length) {
+                        console.log(`Removing ${this.items[i]}...`);
+                        i++;
+                        setTimeout(removeNext, 1000);
+                    } else {
+                        callback();
+                    }
+                };
+                removeNext();
+            },
+            
+            cleanse: function(callback) {
+                console.log("\nBeginning cleansing process...");
+                console.log("Removing impurities from the body...");
+                setTimeout(() => {
+                    console.log("Removing unwanted pubic hair...");
+                    setTimeout(() => {
+                        console.log("Complete cleansing with sacred waters...");
+                        setTimeout(() => {
+                            console.log("Cleansing completed");
+                            callback();
+                        }, 2000);
+                    }, 2000);
+                }, 2000);
+            },
+            
+            performYoniPooja: function(archana, arathi, callback) {
+                document.getElementById('poojaImage').style.display = 'block';
+                console.log("\nPerforming Yoni Pooja:");
+                setTimeout(() => {
+                    console.log(`Archana with ${archana}...`);
+                    setTimeout(() => {
+                        console.log(`Arathi with ${arathi}...`);
+                        setTimeout(() => {
+                            console.log("Abhishekam with sacred waters...");
+                            setTimeout(() => {
+                                document.getElementById('poojaImage').style.display = 'none';
+                                callback();
+                            }, 2000);
+                        }, 2000);
+                    }, 2000);
+                }, 1000);
+            },
+            
+            kundaliniMantra: function(callback) {
+                console.log("\nReciting Kundalini Mantra:");
+                setTimeout(() => {
+                    console.log("kulakuṇḍalinī śaktir dehīnāṃ dehadhāriṇītayā");
+                    setTimeout(() => {
+                        console.log("śivasya saṃyogo maithunaṃ parikīrtitaṃ");
+                        setTimeout(() => {
+                            console.log("pītvā pītvā punaḥ pītvā patito dharaṇītale");
+                            setTimeout(() => {
+                                console.log("uddhāya ca punaḥ pītvā punarjanma na vidyate");
+                                setTimeout(() => {
+                                    console.log("Mantra recitation completed");
+                                    callback();
+                                }, 2000);
+                            }, 2000);
+                        }, 2000);
+                    }, 2000);
+                }, 1000);
+            },
+            
+            farewell: function() {
+                console.log("\nPooja completed");
+                console.log("May Devi depart with happiness and blessings");
+                const bell = new Audio('audio/bell-ring-01.mp3');
+                bell.play();
+            }
+        };
+
+        // Create Pooja Program instance
+        const poojaProgram = Object.create(Pooja);
+        
+        poojaProgram.start = function(mode) {
+            let archana, arathi;
+            if (mode === 'auto') {
+                archana = this.ingredients.archana[Math.floor(Math.random() * this.ingredients.archana.length)];
+                arathi = this.ingredients.arathi[Math.floor(Math.random() * this.ingredients.arathi.length)];
+            } else {
+                archana = document.getElementById('archanaSelect').value;
+                arathi = document.getElementById('arathiSelect').value;
+            }
+
+            this.welcome();
+            this.removeMaterials(() => {
+                this.cleanse(() => {
+                    this.performYoniPooja(archana, arathi, () => {
+                        this.kundaliniMantra(() => {
+                            this.farewell();
+                        });
+                    });
+                });
+            });
+        };
+
+        // Show manual options
+        function showManualOptions() {
+            document.getElementById('manualOptions').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
