@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico">
     <title>Shakthi Pooja</title>
     <style>
         body {
@@ -129,6 +130,26 @@
                     }, 2000);
                 }, 2000);
             },
+
+            Abhishekam: function(callback) {
+                console.log("ॐ");
+                setTimeout(() => {
+                    console.log("ॐ");
+                    setTimeout(() => {
+                        console.log("ॐ");
+                        setTimeout(() => {
+                            console.log("ॐ");
+                            setTimeout(() => {
+                                console.log("ॐ");
+                                setTimeout(() => {
+                                    console.log("ॐ");
+                                    callback();
+                                }, 2000);
+                            }, 2000);
+                        }, 2000);
+                    }, 2000);
+                }, 1000);
+            },
             
             performYoniPooja: function(archana, arathi, callback) {
                 document.getElementById('poojaImage').style.display = 'block';
@@ -167,6 +188,7 @@
                     }, 2000);
                 }, 1000);
             },
+            
             
             farewell: function() {
                 console.log("ॐ");
