@@ -96,8 +96,8 @@
             },
             
             welcome: function() {
-                console.log(ॐ)
-                console.log(ॐ)
+                console.log("ॐ")
+                console.log("ॐ")
             },
             
             removeMaterials: function(callback) {
@@ -105,7 +105,7 @@
                 let i = 0;
                 const removeNext = () => {
                     if (i < this.items.length) {
-                        console.log(ॐ);
+                        console.log("ॐ");
                         i++;
                         setTimeout(removeNext, 1000);
                     } else {
@@ -116,14 +116,14 @@
             },
             
             cleanse: function(callback) {
-                console.log(ॐ)
-                console.log(ॐ)
+                console.log("ॐ")
+                console.log("ॐ")
                 setTimeout(() => {
-                    console.log(ॐ)
+                    console.log("ॐ")
                     setTimeout(() => {
-                        console.log(ॐ)
+                        console.log("ॐ")
                         setTimeout(() => {
-                            console.log(ॐ)
+                            console.log("ॐ")
                             callback();
                         }, 2000);
                     }, 2000);
@@ -132,13 +132,13 @@
             
             performYoniPooja: function(archana, arathi, callback) {
                 document.getElementById('poojaImage').style.display = 'block';
-                console.log("\nPerforming Yoni Pooja:");
+                console.log("ॐ")
                 setTimeout(() => {
-                    console.log(ॐ)
+                    console.log("ॐ")
                     setTimeout(() => {
-                        console.log(ॐ)
+                        console.log("ॐ")
                         setTimeout(() => {
-                            console.log(ॐ)
+                            console.log("ॐ")
                             setTimeout(() => {
                                 document.getElementById('poojaImage').style.display = 'none';
                                 callback();
@@ -149,17 +149,17 @@
             },
             
             kundaliniMantra: function(callback) {
-                console.log("\nReciting Kundalini Mantra:");
+                console.log("ॐ")
                 setTimeout(() => {
-                    console.log("kulakuṇḍalinī śaktir dehīnāṃ dehadhāriṇītayā");
+                    console.log("ॐ")
                     setTimeout(() => {
-                        console.log("śivasya saṃyogo maithunaṃ parikīrtitaṃ");
+                        console.log("ॐ")
                         setTimeout(() => {
-                            console.log("pītvā pītvā punaḥ pītvā patito dharaṇītale");
+                            console.log("ॐ")
                             setTimeout(() => {
-                                console.log("uddhāya ca punaḥ pītvā punarjanma na vidyate");
+                                console.log("ॐ")
                                 setTimeout(() => {
-                                    console.log("Mantra recitation completed");
+                                    console.log("ॐ")
                                     callback();
                                 }, 2000);
                             }, 2000);
@@ -169,8 +169,8 @@
             },
             
             farewell: function() {
-                console.log(ॐ)
-                console.log(ॐ)
+                console.log("ॐ")
+                console.log("ॐ")
                 const bell = new Audio('audio/bell-ring-01.mp3');
                 bell.play();
             }
