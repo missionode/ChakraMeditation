@@ -96,8 +96,8 @@
             },
             
             welcome: function() {
-                console.log("Welcome Devi to Shakthi Pooja");
-                console.log("May you feel relaxed and blessed");
+                console.log(ॐ)
+                console.log(ॐ)
             },
             
             removeMaterials: function(callback) {
@@ -105,7 +105,7 @@
                 let i = 0;
                 const removeNext = () => {
                     if (i < this.items.length) {
-                        console.log(`Removing ${this.items[i]}...`);
+                        console.log(ॐ);
                         i++;
                         setTimeout(removeNext, 1000);
                     } else {
@@ -116,14 +116,14 @@
             },
             
             cleanse: function(callback) {
-                console.log("\nBeginning cleansing process...");
-                console.log("Removing impurities from the body...");
+                console.log(ॐ)
+                console.log(ॐ)
                 setTimeout(() => {
-                    console.log("Removing unwanted pubic hair...");
+                    console.log(ॐ)
                     setTimeout(() => {
-                        console.log("Complete cleansing with sacred waters...");
+                        console.log(ॐ)
                         setTimeout(() => {
-                            console.log("Cleansing completed");
+                            console.log(ॐ)
                             callback();
                         }, 2000);
                     }, 2000);
@@ -134,11 +134,11 @@
                 document.getElementById('poojaImage').style.display = 'block';
                 console.log("\nPerforming Yoni Pooja:");
                 setTimeout(() => {
-                    console.log(`Archana with ${archana}...`);
+                    console.log(ॐ)
                     setTimeout(() => {
-                        console.log(`Arathi with ${arathi}...`);
+                        console.log(ॐ)
                         setTimeout(() => {
-                            console.log("Abhishekam with sacred waters...");
+                            console.log(ॐ)
                             setTimeout(() => {
                                 document.getElementById('poojaImage').style.display = 'none';
                                 callback();
@@ -169,8 +169,8 @@
             },
             
             farewell: function() {
-                console.log("\nPooja completed");
-                console.log("May Devi depart with happiness and blessings");
+                console.log(ॐ)
+                console.log(ॐ)
                 const bell = new Audio('audio/bell-ring-01.mp3');
                 bell.play();
             }

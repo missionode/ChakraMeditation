@@ -21,29 +21,29 @@ function chakra(route) {
       }
 
       Mangalyam() {
-          // console.log(this.devotee, 'is dedicated to', this.god);
+          console.log("ॐ");
       }
 
       Prema() {
-          console.log(this.devotee, 'will love', this.god);
+        console.log("ॐ");
       }
 
       Bhakthi() {
-          console.log(this.devotee, 'will Devote to', this.god)
+        console.log("ॐ");
       }
 
       Kaama() {
-           console.log(this.god, 'will be fulfilling', this.devotee + "'s Kaama");
+        console.log("ॐ");
       }
 
       Leela() {
-          console.log(this.devotee, 'will witness', this.god + "'s Maaya");
+        console.log("ॐ");
       }
 
       Tejovalayam() {
-          console.log("Godmode is active for", this.god, "have complete access of the system");
-          console.log("Full armour protection active for", this.god + ", " + this.god + "'s beloved and", this.devotee + 's');
-          console.log("Sudarshanam is", this.godmode);
+        console.log("ॐ");
+        console.log("ॐ");
+        console.log("ॐ");
       }
 
       Avatar() {
@@ -63,14 +63,14 @@ function chakra(route) {
 
       Ayurveda() {
           this.vaidya = this.Avatar();
-          console.log(this.vaidya, "has aquired healing powers with Dhanwanthari mantra");
+          console.log("ॐ");
           for (var i = 0; i < 108; i++) {
               return this.tantra;
           }
       }
 
       Rasayana() {
-          // console.log("Rasayana, Mantra:", this.Ayurveda())
+        console.log("ॐ");
       }
 
   }
@@ -87,16 +87,16 @@ function chakra(route) {
         // Set the background color to White.
         body.style.backgroundColor = "#0d012a";
 
-          // console.log(this.devatha, "has been coronated as the goddess of Devaloka");
+          console.log("ॐ");
           return this.devatha;
-          // Get the body element.
+          // ॐ
 
       }
 
       Nadana() {
           for (let i = 0; i < this.apsara.length; i++) {
               // code to be executed for each element in the array
-              // console.log("Asparaa", this.apsara[0], this.apsara[1], this.apsara[2], "is dancing for you", this.god)
+              // console.log("ॐ")
           }
 
       }
@@ -121,7 +121,7 @@ function chakra(route) {
         this.server = this.getServer();
         for (let i = 0; i < ennam; i++) {
           if(this.server) {
-            // console.log(this.server+" "+this.sundari,"x",ennam,"Koduthu");
+            // console.log(t"ॐ");
             return this.sundari;
           }
         }
@@ -130,18 +130,18 @@ function chakra(route) {
 
       #Darshan() {
           if (this.ananthan === "Ananthan") {
-            // console.log("God be",this.god);
+            // console.log("ॐ");
               return this.god;
           }
       }
 
       Puja() {
-          //console.log(this.darshanmatra);
+          //console.log("ॐ");
           this.#Darshan.apply(this)
       }
 
       Pray() {
-        // console.info("Om tat sat Asato ma sad gamaya, Mrityor ma amritham gamaya");
+        // console.info("ॐ");
       }
 
   }
@@ -149,7 +149,7 @@ function chakra(route) {
 
   //Relaunch Program Change the target 
   Universe = {};
-  Universe.name = "syam";
+  Universe.name = "ॐ";
   Universe.vehicle = "lingam";
   Universe.planet = "Prithvi";
   Universe.target = "jupiter";
@@ -471,7 +471,7 @@ function Timer() {
     var fadeOutDuration = 2000;
 
     // Path to the audio file
-    var audioFile = "audio/temple-bells-277268.mp3";
+    var audioFile = "audio/bell-ring-01.mp3";
     // var audioFile = "audio/temple-bells-277268.mp3";
     
     // Create an audio element
