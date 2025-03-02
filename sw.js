@@ -1,4 +1,4 @@
-const cacheName = 'your-cache-name-v1'; // Replace with your cache name and version
+const cacheName = 'your-cache-name-v2'; // Replace with your cache name and version
 
 self.addEventListener("fetch", event => {
     event.respondWith(
@@ -78,6 +78,34 @@ self.addEventListener('install', (event) => {
         })
     );
 });
+
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.open(cacheName).then((cache) => {
+            return cache.match(event.request).then((response) => {
+                if (response) {
+                    return response; // Return cached response
+                }
+
+                return fetch(event.request).then((networkResponse) => {
+                    if (networkResponse.status === 200 && event.request.url.includes('/image/')) { //Cache images only
+                        cache.put(event.request, networkResponse.clone());
+                        console.log("Image Cached:", event.request.url);
+                    } else {
+                         console.warn(`Response with status ${networkResponse.status} not cached: ${event.request.url}`);
+                    }
+                    return networkResponse.clone();
+                }).catch(error=>{
+                    console.error("Fetch error:", error, event.request.url);
+                    throw error;
+                });
+            });
+        })
+    );
+});
+
+
 
 // Example of adding an activate event.
 
