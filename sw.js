@@ -1,4 +1,4 @@
-const cacheName = 'your-cache-name-v2'; // Replace with your cache name and version
+const cacheName = 'your-cache-name-v3'; // Replace with your cache name and version
 
 self.addEventListener("fetch", event => {
     event.respondWith(
