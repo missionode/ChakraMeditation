@@ -107,6 +107,16 @@ header {
   padding: 0 20px;
 }
 
+.startSessionBtn {
+  background-color: #674aeb;
+  font-size: 16px;
+    padding: 11px 20px;
+    border-radius: 5px;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+
 #endSessionBtn {
   width: 100%;
   justify-content: space-between;
@@ -193,7 +203,7 @@ details,div#private {
   justify-content: space-between;
   align-items: flex-end;
   background-color: #674aeb;
-
+  z-index: 1;
 }
 
 .tab-button {

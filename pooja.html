@@ -84,6 +84,8 @@
                 <option value="flowers">Flowers</option>
                 <option value="kumkum">Kumkum</option>
                 <option value="turmeric">Turmeric</option>
+                <option value="honey">Honey</option>
+                <option value="icecream">Icecream</option>
             </select>
             <select id="arathiSelect">
                 <option value="camphor">Camphor</option>
@@ -94,6 +96,7 @@
         </div>
 
         <img id="poojaImage" src="image/diya.gif" alt="Diya Lamp">
+        <!-- <img id="prasadam" src="image/prasadam.gif" alt="Prasadam"> -->
     </div>
 
     <script>
@@ -101,7 +104,7 @@
         const Pooja = {
             items: ['clothes', 'jewels', 'ornaments'],
             ingredients: {
-                archana: ['flowers', 'kumkum', 'turmeric'],
+                archana: ['flowers', 'kumkum', 'turmeric','honey','icecream'],
                 arathi: ['camphor', 'oil', 'ghee']
             },
             
@@ -141,7 +144,7 @@
             },
 
             Abhishekam: function(callback) {
-                console.log("ॐ");
+                console.log("ॐ Abhishekam");
                 setTimeout(() => {
                     console.log("ॐ");
                     setTimeout(() => {
@@ -204,33 +207,65 @@
                 console.log("ॐ");
                 const bell = new Audio('audio/bell-ring-01.mp3');
                 bell.play();
+                document.getElementById('poojaImage').style.display = 'none';
             }
         };
 
         // Create Pooja Program instance
         const poojaProgram = Object.create(Pooja);
-        
-        poojaProgram.start = function(mode) {
-            let archana, arathi;
-            if (mode === 'auto') {
-                archana = this.ingredients.archana[Math.floor(Math.random() * this.ingredients.archana.length)];
-                arathi = this.ingredients.arathi[Math.floor(Math.random() * this.ingredients.arathi.length)];
-            } else {
-                archana = document.getElementById('archanaSelect').value;
-                arathi = document.getElementById('arathiSelect').value;
-            }
 
-            this.welcome();
-            this.removeMaterials(() => {
-                this.cleanse(() => {
-                    this.performYoniPooja(archana, arathi, () => {
-                        this.kundaliniMantra(() => {
-                            this.farewell();
-                        });
+poojaProgram.start = function(mode) {
+    let archana, arathi;
+    if (mode === 'auto') {
+        archana = this.ingredients.archana[Math.floor(Math.random() * this.ingredients.archana.length)];
+        arathi = this.ingredients.arathi[Math.floor(Math.random() * this.ingredients.arathi.length)];
+    } else {
+        archana = document.getElementById('archanaSelect').value;
+        arathi = document.getElementById('arathiSelect').value;
+    }
+
+    const startTime = performance.now(); // Start timing
+
+    this.welcome();
+    this.removeMaterials(() => {
+        this.cleanse(() => {
+            this.Abhishekam(() => {
+                this.performYoniPooja(archana, arathi, () => {
+                    this.kundaliniMantra(() => {
+                        this.farewell();
+
+                        const endTime = performance.now(); // End timing
+                        const executionTime = endTime - startTime; // Calculate execution time in milliseconds
+
+                        // Save execution time to a variable
+                        const executionTimeMs = executionTime;
+
+                        // Create URL with execution time as a parameter
+                        const url = `invoice.html?duration=${executionTimeMs}`;
+
+                        // Example of using the URL (e.g., redirecting or sending data)
+                        // console.log("Execution Time (ms):", executionTimeMs);
+                        // console.log("URL:", url);
+
+                        // If you need to navigate to the url:
+                        window.location.href = url;
+
+                        //If you need to send a fetch request:
+                        // fetch(url).then(response=>{
+                        //   //handle response
+                        // }).catch(error=>{
+                        //   //handle error
+                        // });
+
                     });
                 });
             });
-        };
+        });
+    });
+};
+
+// Example usage (assuming 'auto' mode)
+// poojaProgram.start('auto');
 
         // Show manual options
         function showManualOptions() {

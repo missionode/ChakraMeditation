@@ -1,12 +1,12 @@
 function chakra(route) {
   class Temple {
       constructor(god, devotee) {
-          this.godmode = "on";
+          this.godmode = "ॐ";
           this.devotee = devotee;
           this.god = god;
-          this.mantra = 'Om Namo Bhagavate Dhanvantaraya Ayurveda-Chakravartinaya Sarva-Roga-Haraya Swaha';
-          this.tantra = 'കുലകുണ്ഡലിനി ശക്തിർദേഹിനാം ദേഹധാരിണിതയാ ശിവസ്യ സംയോഗോ മൈധുനം പരികീർതിതം പീത്വാ പീത്വാ പുന പീത്വാ പതിതോ ധരണിതലേഉദ്ധായ ച പുനഃ പീത്വാ പുനർജന്മ ന വിദ്യതേ'
-          this.vaidya = "Dhanvantari";
+          this.mantra = 'ॐ';
+          this.tantra = 'ॐ'
+          this.vaidya = "ॐ";
       }
 
       Pooja() {
@@ -51,9 +51,9 @@ function chakra(route) {
       }
 
       Homa() {
-        var fuel = "Desire";
-        var catalyst = "Aura";
-        var energy = "Body";
+        var fuel = "ॐ";
+        var catalyst = "ॐ";
+        var energy = "ॐ";
         if (this.god) {
           const arpanam = fuel + catalyst + energy;
           return arpanam;
@@ -106,8 +106,8 @@ function chakra(route) {
       constructor(god, devotee, apsara, ananthan, darshanmatra, servers) {
           super(god, devotee, apsara);
           this.ananthan = ananthan;
-          this.darshanmatra = "Om Namo Krishnaya";
-          this.servers = ["Christian","Hindu","Muslim","Cosmic"];
+          this.darshanmatra = "ॐ";
+          this.servers = ["ॐ","ॐ","ॐ","ॐ"];
           this.sundari = this.devotee;
       }
 
@@ -150,20 +150,20 @@ function chakra(route) {
   //Relaunch Program Change the target 
   Universe = {};
   Universe.name = "ॐ";
-  Universe.vehicle = "lingam";
-  Universe.planet = "Prithvi";
-  Universe.target = "jupiter";
-  Universe.landpad = "yoni";
+  Universe.vehicle = "ॐ";
+  Universe.planet = "ॐ";
+  Universe.target = "ॐ";
+  Universe.landpad = "ॐ";
   Universe.launch = function(){
       Universe.do = Universe.name + " rides his " + Universe.vehicle + " to " + Universe.target + "'s " + Universe.landpad;
     return Universe.do;
   }
 
   for (var i = 0; i < route.length; i++) {
-      Universe.name = "God";
+      Universe.name = "ॐ";
       const DigitalImage = new Temple(route[i], Universe.name);
       DigitalImage.Tejovalayam();
-      DigitalImage.Pushpanjali(["fruits","flowers"]);
+      DigitalImage.Pushpanjali(["ॐ","ॐ"]);
       DigitalImage.Kaama();
 
       const Aura = new Temple(route[i], Universe.name);
@@ -182,19 +182,19 @@ function chakra(route) {
       Yoga.Rasayana();
 
 
-      const Loka = new Devaloka(route[i], Universe.name, ['Rambha', 'Menaka', 'Thilothama']);
+      const Loka = new Devaloka(route[i], Universe.name, ['ॐ', 'ॐ', 'ॐ']);
       Loka.Abhisheka();
       Loka.Nadana();
       Loka.Tejovalayam();
 
-      const SpiritualRealm = new Vaikuntha(route[i], "Kaali", "Urvashi", "Ananthan");
+      const SpiritualRealm = new Vaikuntha(route[i], "ॐ", "ॐ", "ॐ");
       SpiritualRealm.Puja();
       SpiritualRealm.Pray();
       SpiritualRealm.sendRequest(9);
   }
 };
 
-window.onload = chakra(['Syam']);
+window.onload = chakra(['ॐ']);
 
 
 function toggleMenu() {
