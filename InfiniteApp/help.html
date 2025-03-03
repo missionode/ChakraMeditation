@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Scheduler Calendar App: User Guide</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif; /* Use Roboto font (Material Design) */
+            line-height: 1.6;
+            /* margin: 20px; */
+            background-color: #f5f5f5; /* Light background */
+        }
+        .mdl-card {
+            width: 80%; /* Adjust as needed */
+            margin: 20px auto;
+        }
+        .mdl-card__title {
+            color: rgba(0, 0, 0, 0.87); /* Darker title text */
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        ul, ol {
+            margin-left: 20px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        code {
+            font-family: monospace;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .mdl-button {
+            margin: 8px; /* Add some margin around buttons */
+        }
+        .mdl-data-table {
+          width: 100%;
+        }
+        .mdl-data-table td, .mdl-data-table th {
+          text-align: left; /* Align text to the left in table cells */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <a href="index.html"><h2 style="text-align: center; display: inline-flex;" class="mdl-card__title-text">Infinite Scheduler</h2></a>
+        </div>
+    </div>
+
+    <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Simple Scheduler Calendar App: User Guide</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+
+          <p>Welcome to the Simple Scheduler Calendar App! This guide will walk you through the app's features and how to use them.</p>
+
+          <h2>1. Navigating the Calendar</h2>
+
+          <ul>
+              <li><strong>Viewing the Calendar:</strong> The app displays the current year's calendar. The current date is highlighted. Past dates are disabled (grayed out).</li>
+              <li><strong>Moving Between Months:</strong> Use the left (&lt;) and right (&gt;) arrow buttons to navigate. You can only navigate to future months within the current year.</li>
+          </ul>
+
+          <h2>2. Booking an Appointment</h2>
+
+          <ul>
+              <li><strong>Finding Available Slots:</strong> Available slots are marked with a "+" icon on Mondays, Tuesdays, and Wednesdays. Only one booking per day is allowed.</li>
+              <li><strong>Selecting a Date:</strong> Click a "+" to open the booking form.</li>
+              <li><strong>Filling the Form:</strong>
+                  <ul>
+                      <li><strong>Name:</strong> Enter your full name.</li>
+                      <li><strong>Phone Number:</strong> Enter your phone number (used for booking identification).</li>
+                      <li><strong>Age:</strong> Enter your age.</li>
+                      <li><strong>Gender:</strong> Select your gender.</li>
+                  </ul>
+              </li>
+              <li><strong>Adding Extra People (Optional):</strong>
+                  <ul>
+                      <li>Click "Add Extra Person" to add details for up to two people.</li>
+                      <li>For each person, enter their age and select their gender.</li>
+                  </ul>
+              </li>
+              <li><strong>Submitting:</strong> Click "Submit" to confirm.</li>
+              <li><strong>Confirmation:</strong> A "Booking confirmed!" message appears briefly. The "+" icon disappears.</li>
+              <li><strong>Canceling:</strong> Contact the administrator to cancel. No-shows are considered cancellations.</li>
+          </ul>
+
+          <h1>Only applicable for admin User</h1>
+
+          <h2>3. Viewing Current Month's Bookings</h2>
+          <a href="bookings.html">View Bookings</a>
+
+          <ul>
+              <li><strong>Accessing Bookings:</strong> Open the <code>bookings.html</code> page.</li>
+              <li><strong>Viewing Bookings:</strong> The table shows bookings for the current month (name, phone, age, gender, date, extra people details).</li>
+          </ul>
+
+          <h2>4. Exporting and Importing Bookings (Backup/Restore)</h2>
+
+          <ul>
+              <li><strong>Exporting Bookings:</strong>
+                  <ol>
+                      <li>On <code>bookings.html</code>, click "Export Bookings".</li>
+                      <li>Save the downloaded <code>bookings.json</code> file to your computer.</li>
+                  </ol>
+              </li>
+              <li><strong>Importing Bookings:</strong>
+                  <ol>
+                      <li>On <code>bookings.html</code>, click "Import Bookings".</li>
+                      <li>Select the <code>bookings.json</code> file you previously saved.</li>
+                      <li>Your bookings will be restored.</li>
+                  </ol>
+              </li>
+          </ul>
+
+          <h2>5. Important Notes</h2>
+
+          <ul>
+              <li>Bookings are stored locally in your browser. Export regularly for backup.</li>
+              <li>Only one booking per phone number per day is allowed. Book again after your previous booking date.</li>
+              <li>Contact the administrator for questions or assistance.</li>
+          </ul>
+
+          <h2>Want to reset the program</h2>
+          <p>Open the console from the developer options then  open the console and enter this localStorage.removeItem('bookings') and hit enter ↳</p>
+
+        </div>
+    </div>
+
+</body>
+</html>

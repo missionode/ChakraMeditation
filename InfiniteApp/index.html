@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scheduler Calendar</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css"> </head>
+<body>
+
+    <div class="mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <a href="../studio.html"><h2 style="text-align: center; display: inline-flex;" class="mdl-card__title-text">Infinite Scheduler</h2></a>
+        </div>
+    </div>
+
+
+    <div id="calendar-container" class="mdl-card mdl-shadow--2dp">
+        <div id="calendar-header" class="mdl-card__title">
+            <button id="prev-month" class="mdl-button mdl-js-button mdl-button--icon" disabled><i class="material-icons">chevron_left</i></button>
+            <span id="current-month" class="mdl-card__title-text">October 2024</span>
+            <button id="next-month" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">chevron_right</i></button>
+        </div>
+        <div id="calendar-grid" class="mdl-grid">
+        </div>
+    </div>
+
+    <div id="booking-form" class="mdl-card mdl-shadow--2dp" style="display: none;">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Book a Slot</h2>
+      </div>
+      <div class="mdl-card__title">
+        <div id="selected-date-display"></div> 
+      </div>
+        <form id="booking-details" class="mdl-card__supporting-text">
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="name" placeholder="Name" required>
+                <label class="mdl-textfield__label" for="name">Name</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="tel" id="phone" placeholder="Phone Number" required>
+                <label class="mdl-textfield__label" for="phone">Phone Number</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="number" id="age" placeholder="Age" required min="1">
+                <label class="mdl-textfield__label" for="age">Age</label>
+            </div>
+            <div class="gender-options">
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="gender" value="male" required>
+                    <span class="mdl-radio__label">Male</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="gender" value="female" required>
+                    <span class="mdl-radio__label">Female</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="gender" value="other" required>
+                    <span class="mdl-radio__label">Other</span>
+                </label>
+            </div>
+            <br>
+            
+                <h6 class="">Add Extra People (Up to 2)</h6>
+            
+           
+            <div id="extra-person-1" style="display:none">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="number" id="extra-age-1" placeholder="Age" min="1">
+                    <label class="mdl-textfield__label" for="extra-age-1">Age</label>
+                </div>
+                <div class="gender-options">
+                  <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-1" value="male">
+                    <span class="mdl-radio__label">Male</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-1" value="female">
+                    <span class="mdl-radio__label">Female</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-1" value="other">
+                    <span class="mdl-radio__label">Other</span>
+                </label>
+                </div>
+            </div>
+            <div id="extra-person-2" style="display:none">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="number" id="extra-age-2" placeholder="Age" min="1">
+                    <label class="mdl-textfield__label" for="extra-age-2">Age</label>
+                </div>
+                <div class="gender-options">
+                  <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-2" value="male">
+                    <span class="mdl-radio__label">Male</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-2" value="female">
+                    <span class="mdl-radio__label">Female</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio">
+                    <input type="radio" class="mdl-radio__button" name="extra-gender-2" value="other">
+                    <span class="mdl-radio__label">Other</span>
+                </label>
+                </div>
+            </div>
+            <button type="button" id="add-extra" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Add extra person</button>
+
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Submit</button>
+            <button style="margin-top: 20px;" type="button" id="cancel-booking" class="mdl-button mdl-js-button mdl-js-ripple-effect">Cancel</button>
+        </form>
+    </div>
+
+    <div id="confirmation-message" class="mdl-card mdl-shadow--2dp" style="display: none;">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Booking confirmed!</h2>
+      </div>
+    </div>
+
+    <div class="help">
+        <a href="help.html"><img src="icons8-help-50.png" alt="Click to get help"></a>
+    </div>
+
+    <div class="courtesy">
+        <a target="_blank" href="https://icons8.com/icon/646/help">Help</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Month Bookings</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    .bookings-card {
+    width: 80%; /* Adjust as needed */
+    margin: 20px auto;
+    }
+
+    #bookings-table-body tr td {
+      text-align: center;
+    }
+
+    .mdl-card__supporting-text {
+        overflow: scroll;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <a href="index.html"><h2 style="text-align: center; display: inline-flex;" class="mdl-card__title-text">Infinite Scheduler</h2></a>
+        </div>
+    </div>
+
+  <div class="mdl-card mdl-shadow--2dp bookings-card">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Current Month Bookings</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <table class="mdl-data-table mdl-js-data-table">
+                <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Name</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Date</th>
+                        <th>Extra People</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+        
+
+
+        <button id="export-bookings" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Download Backup Now</button>
+    </div>
+
+    <div style="min-height: inherit" class="mdl-card mdl-shadow--2dp bookings-card">
+        <input type="file" id="import-file" accept=".json" style="display: none;">
+        <button id="import-bookings" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Install Backup Now</button>
+    </div>
+
+    
+    
+    <script >
+      const bookingsTableBody = document.getElementById('bookings-table-body');
+
+function displayCurrentMonthBookings() {
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    bookingsTableBody.innerHTML = ''; // Clear existing bookings
+
+    const currentMonthBookings = bookings.filter(booking => {
+        const bookingDate = new Date(booking.date);
+        return bookingDate.getMonth() === currentMonth && bookingDate.getFullYear() === currentYear;
+    });
+
+    currentMonthBookings.forEach(booking => {
+        const row = bookingsTableBody.insertRow();
+        const nameCell = row.insertCell();
+        const phoneCell = row.insertCell();
+        const ageCell = row.insertCell();
+        const genderCell = row.insertCell();
+        const dateCell = row.insertCell();
+        const extraPeopleCell = row.insertCell();
+
+
+        nameCell.textContent = booking.name;
+        phoneCell.textContent = booking.phone;
+        ageCell.textContent = booking.age;
+        genderCell.textContent = booking.gender;
+        dateCell.textContent = booking.date;
+
+        let extraPeopleText = "";
+        booking.extraPeople.forEach(person => {
+            extraPeopleText += `${person.age}, ${person.gender}<br>`;
+        });
+        extraPeopleCell.innerHTML = extraPeopleText; // Use innerHTML for line breaks
+
+    });
+}
+
+
+// time stamp for export
+function getCurrentDateTime() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+
+
+const exportButton = document.getElementById('export-bookings');
+
+exportButton.addEventListener('click', () => {
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    const bookingsJSON = JSON.stringify(bookings);
+
+    const blob = new Blob([bookingsJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+
+
+    const timestamp = getCurrentDateTime();
+
+
+    a.download = 'bookings-'+timestamp+'.json'
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url); // Clean up
+});
+
+
+
+//Import bookings 
+
+const importButton = document.getElementById('import-bookings');
+const importFile = document.getElementById('import-file');
+
+importButton.addEventListener('click', () => {
+    importFile.click(); // Trigger the file input dialog
+});
+
+importFile.addEventListener('change', () => {
+    const file = importFile.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+            try {
+                const importedBookings = JSON.parse(event.target.result);
+
+                // Basic validation (optional, but recommended)
+                if (Array.isArray(importedBookings)) {
+                    // Overwrite existing bookings (or merge, if you prefer)
+                    localStorage.setItem('bookings', JSON.stringify(importedBookings));
+                    alert("Bookings imported successfully!");
+                    displayCurrentMonthBookings(); // Refresh the table
+                } else {
+                    alert("Invalid import file. Please select a valid bookings JSON file.");
+                }
+
+            } catch (error) {
+                alert("Error importing bookings. Please check the file format.");
+                console.error("Import error:", error);
+            }
+        };
+
+        reader.readAsText(file);
+        importFile.value = ''; // Reset the file input
+    }
+});
+
+
+
+displayCurrentMonthBookings(); // Call the function to display bookings when the page loads
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
