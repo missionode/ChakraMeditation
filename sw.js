@@ -1,4 +1,4 @@
-const cacheName = 'your-cache-name-v7'; // Replace with your cache name and version
+const cacheName = 'your-cache-name-v9'; // Replace with your cache name and version
 
 self.addEventListener("fetch", event => {
     event.respondWith(
@@ -71,6 +71,11 @@ self.addEventListener('install', (event) => {
             return cache.addAll([
                 '/', // Add files you want to cache here
                 "index.html",
+                "studio.html",
+                "pooja.html",
+                "settings.html",
+                "nfc.html",
+                "nfc.html",
 				"main.js",
 				"style.css",
 				"manifest.json",

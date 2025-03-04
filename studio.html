@@ -32,7 +32,7 @@
    <meta property="og:site_name" content="Simple Chakra Meditation PWA" />
 
    <!-- Styles -->
-   <link rel="stylesheet" href="style.css?ver=12">
+   <link rel="stylesheet" href="style.css?ver=14">
 
    <!-- Javscript -->
    <script>
@@ -42,7 +42,7 @@
 		   });
 	   }
    </script>
-   <script defer src="./main.js?ver=6"></script>
+   <script defer src="./main.js?ver=8"></script>
 </head>
 
 <header>
@@ -411,11 +411,12 @@
     </div>
 
 	
-
+	<div class="session_class">
+		<input id="startSessionBtn" style="margin-top: 40px;" class="submit action-button" type="submit" value="Ready ! Start Session" />
+	</div>
 	
 <div id="chakraCards"></div>
 <div class="session_class">
-	<input id="startSessionBtn" style="margin-top: 40px;" class="submit action-button" type="submit" value="Click when Ready " />
 	<button id="endSessionBtn" class="action-button hidden">Click When Session is Complete <div id="elapsedTime" class="time-display"></div></button>
 </div>
 	
