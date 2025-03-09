@@ -6,11 +6,16 @@
     <title>Digital Visiting Card</title>
     <style>
         body {
-        font-family: sans-serif;
-        text-align: center;
-        padding: 20px;
-        background: beige url(image/THESECRET.png) no-repeat center center;
-        background-size: cover;
+        display: flex;
+        justify-content: center; /* Horizontal centering */
+        align-items: center; /* Vertical centering */
+        min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+        margin: 0; /* Remove default body margin */
+        background-color: #f0edbc;
+    }
+    body > img  {
+        max-width: 100%; /* Optional: Make the image responsive */
+        max-height: 100%; /* Optional: Make the image responsive */
     }
 
     #nfc-section,
@@ -58,9 +63,14 @@
             font-size: 14px;
         }
     }
+    .responsive {
+        height: auto;
+        width: 100%;
+    }
     </style>
 </head>
 <body>
+    <img class="responsive" src="image/THESECRET.png" alt="the secret" title="the secret">
     <!-- <div id="nfc-section">
         <p>Tap your phone to an NFC supported system.</p>
     </div>
