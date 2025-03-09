@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } else {
         // NFC is not supported
-        alert("NFC not supported by your system")
+        // alert("NFC not supported by your system")
     }
 
    
