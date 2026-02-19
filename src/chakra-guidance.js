@@ -6,16 +6,29 @@ export class ChakraGuidance {
   _getBestVoice() {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
-    const preferred = voices.find(v => v.lang === 'en-IN' && (v.name.includes('Veena') || v.name.includes('Heera') || v.name.includes('Female')));
+    
+    // List of known high-quality Indian English female voices across platforms
+    const indianFemaleNames = ['Veena', 'Heera', 'Sangeeta', 'Priya', 'Neerja', 'Google English (India)'];
+    
+    // 1. Try to find a specific Indian English female voice by name or 'Female' tag
+    const preferred = voices.find(v => 
+      v.lang.includes('IN') && 
+      (indianFemaleNames.some(name => v.name.includes(name)) || v.name.toLowerCase().includes('female'))
+    );
     if (preferred) return preferred;
-    const indian = voices.find(v => v.lang === 'en-IN');
-    if (indian) return indian;
-    return null;
+
+    // 2. Fallback to any Indian English voice that doesn't explicitly say 'Male'
+    const anyIndian = voices.find(v => v.lang.includes('IN') && !v.name.toLowerCase().includes('male'));
+    if (anyIndian) return anyIndian;
+
+    // 3. Fallback to any English female voice (US/UK/AU) for the 'sweet' tone
+    const anyFemale = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'));
+    if (anyFemale) return anyFemale;
+
+    // 4. Last resort: first Indian voice found
+    return voices.find(v => v.lang.includes('IN')) || null;
   }
 
-  /**
-   * Constructs an array of phrases with internal pauses for maximum "stretch".
-   */
   constructPhrases(chakra) {
     return [
       `Now. . . Focus. . . on your. . . ${chakra.name}.`,
@@ -27,12 +40,8 @@ export class ChakraGuidance {
     ];
   }
 
-  /**
-   * Recursively speaks phrases with moderate meditative pauses.
-   */
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
-      // Final transition pause (1.5 seconds)
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
       }, 1500);
@@ -41,21 +50,24 @@ export class ChakraGuidance {
 
     const utterance = new SpeechSynthesisUtterance(phrases[index]);
     const voice = this._getBestVoice();
-    if (voice) utterance.voice = voice;
+    
+    if (voice) {
+      utterance.voice = voice;
+      if (index === 0) console.log("ChakraGuidance selecting voice:", voice.name, voice.lang);
+    }
 
-    // Extreme stretch tuning
-    utterance.rate = 0.4;  // Extremely slow
-    utterance.pitch = 0.9; // Smooth tone
+    utterance.rate = 0.4;  
+    utterance.pitch = 1.1; // Slightly higher pitch helps a voice sound more female/sweet
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // Moderate pause (1.2 seconds) between full stops
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
       }, 1200);
     };
 
-    utterance.onerror = () => {
+    utterance.onerror = (e) => {
+      console.error("Speech error:", e);
       this._speakPhrases(phrases, index + 1, onEndCallback);
     };
 
