@@ -14,28 +14,28 @@ export class ChakraGuidance {
   }
 
   /**
-   * Constructs an array of phrases to allow for controlled pauses between sentences.
+   * Constructs an array of phrases with internal pauses for maximum "stretch".
    */
   constructPhrases(chakra) {
     return [
-      `Now. . . Focus on your ${chakra.name}.`,
-      `The mantra for this chakra. . . is. . . ${chakra.mantra}.`,
-      `Gently. . . locate your focus. . . at the ${chakra.location}.`,
-      `It embodies the power. . . of ${chakra.feature}.`,
-      `And is associated. . . with the element. . . ${chakra.element}.`,
+      `Now. . . . . Focus. . . . . on your. . . . . ${chakra.name}.`,
+      `The mantra. . . for this chakra. . . . . is. . . . . ${chakra.mantra}.`,
+      `Gently. . . . . locate your focus. . . . . at the. . . . . ${chakra.location}.`,
+      `It embodies. . . . . the power. . . . . of. . . . . ${chakra.feature}.`,
+      `And is associated. . . . . with the element. . . . . ${chakra.element}.`,
       `${chakra.description}.`
     ];
   }
 
   /**
-   * Recursively speaks an array of phrases with a delay between each.
+   * Recursively speaks phrases with long meditative pauses.
    */
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
-      // Final transition pause after the last phrase is finished
+      // Final transition pause (3 seconds)
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
-      }, 2000);
+      }, 3000);
       return;
     }
 
@@ -43,20 +43,19 @@ export class ChakraGuidance {
     const voice = this._getBestVoice();
     if (voice) utterance.voice = voice;
 
-    // Stretchy, very slow pace
-    utterance.rate = 0.5; 
-    utterance.pitch = 1.0;
+    // Extreme stretch tuning
+    utterance.rate = 0.4;  // Extremely slow
+    utterance.pitch = 0.9; // Slightly lower for a smoother, warmer tone
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // Pause after full stop (1.5 seconds) before next phrase
+      // Deep meditative pause (3 seconds) between full stops
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
-      }, 1500);
+      }, 3000);
     };
 
     utterance.onerror = () => {
-      // Fallback to continue on error
       this._speakPhrases(phrases, index + 1, onEndCallback);
     };
 

@@ -39,49 +39,41 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should split guidance into multiple phrases', () => {
+  it('should set extremely slow rate and low pitch', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    const phrases = guidance.constructPhrases(chakra);
-    expect(phrases.length).toBeGreaterThan(3);
-    expect(phrases[0]).toContain('Focus on your Root');
+    guidance.speakChakra(chakra);
+    
+    expect(utterances[0].rate).toBe(0.4);
+    expect(utterances[0].pitch).toBe(0.9);
   });
 
-  it('should speak phrases sequentially with pauses', () => {
-    const onEnd = vi.fn();
+  it('should use long meditative pauses (3s) between phrases', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
+    guidance.speakChakra(chakra);
     
-    guidance.speakChakra(chakra, onEnd);
-    
-    // First phrase spoken
-    expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
-    expect(utterances[0].rate).toBe(0.5);
-
-    // End first phrase
     utterances[0].onend();
     
-    // Should NOT speak next phrase yet (needs 1.5s pause)
+    vi.advanceTimersByTime(2500);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
     
-    vi.advanceTimersByTime(1500);
+    vi.advanceTimersByTime(500);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(2);
   });
 
-  it('should trigger final callback after all phrases and transition pause', () => {
+  it('should trigger final callback after 3s transition pause', () => {
     const onEnd = vi.fn();
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     const phrases = guidance.constructPhrases(chakra);
     
     guidance.speakChakra(chakra, onEnd);
 
-    // Simulate completion of all phrases
     for(let i = 0; i < phrases.length; i++) {
         utterances[i].onend();
-        vi.advanceTimersByTime(1500);
+        vi.advanceTimersByTime(3000);
     }
 
-    // After last phrase, needs 2s transition pause
     expect(onEnd).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(2000);
+    vi.advanceTimersByTime(3000);
     expect(onEnd).toHaveBeenCalled();
   });
 });
