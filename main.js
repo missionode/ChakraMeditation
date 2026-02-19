@@ -29,104 +29,166 @@ tabButtons.forEach(button => {
 const guidance = new ChakraGuidance();
 const chakraTimer = new ChakraTimer();
 
+/**
+ * Utility to fade in audio
+ */
+function fadeInAudio(audio, duration = 3000) {
+    audio.volume = 0;
+    audio.play().catch(e => console.log("Audio play blocked:", e));
+    let start = Date.now();
+    const interval = setInterval(() => {
+        let elapsed = Date.now() - start;
+        audio.volume = Math.min(elapsed / duration, 1);
+        if (audio.volume >= 1) {
+            audio.volume = 1;
+            clearInterval(interval);
+        }
+    }, 100);
+}
+
+/**
+ * Utility to fade out audio
+ */
+function fadeOutAudio(audio, duration = 3000, callback) {
+    let start = Date.now();
+    const startVolume = audio.volume;
+    const interval = setInterval(() => {
+        let elapsed = Date.now() - start;
+        audio.volume = Math.max(startVolume * (1 - elapsed / duration), 0);
+        if (audio.volume <= 0) {
+            audio.volume = 0;
+            clearInterval(interval);
+            audio.pause();
+            if (callback) callback();
+        }
+    }, 100);
+}
+
 document.getElementById("startSessionBtn").addEventListener("click", function (event) {
   event.preventDefault();
-
-  const progressValues = Array.from(document.querySelectorAll("input.ival")).map((input) => parseInt(input.value));
-  const sortedChakras = sortChakrasByProgress(chakras, progressValues);
+  const btn = event.target;
+  const originalText = btn.value;
   
-  // Attach calculated durations to chakra objects for the manager
-  sortedChakras.forEach(c => {
-      const progress = progressValues[chakras.indexOf(c)];
-      c.timerDuration = calculateTimer(progress);
-  });
-
-  const chakraCardsContainer = document.getElementById("chakraCards");
-  chakraCardsContainer.innerHTML = "";
-
-  // UI Setup: Hide form
-  const formChakr = document.getElementById('chakraForm');
-  if (formChakr) formChakr.style.display = "none";
-
-  // Create cards in the DOM (hidden initially or styled appropriately)
-  sortedChakras.forEach((chakra, index) => {
-    const chakraCard = document.createElement("div");
-    chakraCard.className = "chakra-card";
-    chakraCard.id = `chakra-card-${index}`;
-    chakraCard.style.borderTop = "10px solid " + chakra.colorcode;
-
-    chakraCard.innerHTML = `
-      <h2 style="color:${chakra.colorcode}">${chakra.name}</h2>
-      <div class="figure-container">
-      <figure>
-        <img class="chakraImage" src="${chakra.image}">
-        <figcaption>${chakra.name}</figcaption>
-      </figure>
-      <figure>
-        <img src="${chakra.visualimage}" alt="${chakra.visualname}">
-        <figcaption>${chakra.visualname}</figcaption>
-        </figure>
-      </div>
-      <p><strong>Mantra: ${chakra.mantra}</strong></p>
-      <p><strong>Location: ${chakra.location}</strong></p>
-      <p><strong>Power: ${chakra.feature}</strong></p>
-      <p><strong>Element: ${chakra.element}</strong></p>
-      <p><strong>Description: ${chakra.description}</strong></p>
-      <p>${chakra.associated}</p>
-      <div style="margin-top:20px;" class="audio-player-container">
-        <audio loop class="mantra-audio" id="audio-${index}">
-          <source src="${chakra.audio}">
-        </audio>
-      </div>
-      <div class="timer-display" id="timer-display-${index}">${chakra.timerDuration} Minute Session</div>
-    `;
-    chakraCardsContainer.appendChild(chakraCard);
-  });
-
-  // Initialize Session Manager
-  const manager = new MeditationSessionManager(sortedChakras, guidance, chakraTimer);
-
-  manager.onChakraChange = (chakra, index) => {
-      // Clear previous active states
-      document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra'));
+  // 1. Preparation Phase: 4-second countdown
+  let countdown = 4;
+  btn.disabled = true;
+  btn.style.backgroundColor = "#ffa500"; // Orange for preparation
+  
+  const countdownInterval = setInterval(() => {
+      btn.value = `Prepare yourself... ${countdown}`;
+      countdown--;
       
-      // Highlight current card
-      const card = document.getElementById(`chakra-card-${index}`);
-      if (card) {
-          card.classList.add('active-chakra');
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (countdown < 0) {
+          clearInterval(countdownInterval);
+          btn.value = originalText;
+          btn.style.backgroundColor = ""; // Reset color
+          btn.disabled = false;
+          runSessionFlow();
       }
+  }, 1000);
 
-      // Handle Audio: Stop all, play current
-      document.querySelectorAll('.mantra-audio').forEach(a => { a.pause(); a.currentTime = 0; });
-      
-      // Audio only plays during 'meditating' state, not 'guidance' state.
-      // The manager calls startMeditation after guidance.
-  };
+  function runSessionFlow() {
+    const progressValues = Array.from(document.querySelectorAll("input.ival")).map((input) => parseInt(input.value));
+    const sortedChakras = sortChakrasByProgress(chakras, progressValues);
+    
+    sortedChakras.forEach(c => {
+        const progress = progressValues[chakras.indexOf(c)];
+        c.timerDuration = calculateTimer(progress);
+    });
 
-  // Override startMeditation to handle music and visual polish
-  const originalStartMeditation = manager._startMeditation.bind(manager);
-  manager._startMeditation = (chakra) => {
-      const index = manager.currentIndex;
-      const audio = document.getElementById(`audio-${index}`);
-      if (audio) audio.play().catch(e => console.log("Music play blocked:", e));
-      
-      const card = document.getElementById(`chakra-card-${index}`);
-      if (card) card.classList.add('meditating-now');
+    const chakraCardsContainer = document.getElementById("chakraCards");
+    chakraCardsContainer.innerHTML = "";
 
-      originalStartMeditation(chakra);
-  };
+    const formChakr = document.getElementById('chakraForm');
+    if (formChakr) formChakr.style.display = "none";
 
-  manager.onComplete = () => {
-      document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
-      alert("Spiritual Journey Complete.");
-      
-      // Trigger legacy session end logic if needed
-      const endBtn = document.getElementById('endSessionBtn');
-      if (endBtn) endBtn.click();
-  };
+    sortedChakras.forEach((chakra, index) => {
+      const chakraCard = document.createElement("div");
+      chakraCard.className = "chakra-card";
+      chakraCard.id = `chakra-card-${index}`;
+      chakraCard.style.borderTop = "10px solid " + chakra.colorcode;
 
-  manager.startSession();
+      chakraCard.innerHTML = `
+        <h2 style="color:${chakra.colorcode}">${chakra.name}</h2>
+        <div class="figure-container">
+        <figure>
+          <img class="chakraImage" src="${chakra.image}">
+          <figcaption>${chakra.name}</figcaption>
+        </figure>
+        <figure>
+          <img src="${chakra.visualimage}" alt="${chakra.visualname}">
+          <figcaption>${chakra.visualname}</figcaption>
+          </figure>
+        </div>
+        <p><strong>Mantra: ${chakra.mantra}</strong></p>
+        <p><strong>Location: ${chakra.location}</strong></p>
+        <p><strong>Power: ${chakra.feature}</strong></p>
+        <p><strong>Element: ${chakra.element}</strong></p>
+        <p><strong>Description: ${chakra.description}</strong></p>
+        <p>${chakra.associated}</p>
+        <div style="margin-top:20px;" class="audio-player-container">
+          <audio loop class="mantra-audio" id="audio-${index}">
+            <source src="${chakra.audio}">
+          </audio>
+        </div>
+        <div class="timer-display" id="timer-display-${index}">${chakra.timerDuration} Minute Session</div>
+      `;
+      chakraCardsContainer.appendChild(chakraCard);
+    });
+
+    const manager = new MeditationSessionManager(sortedChakras, guidance, chakraTimer);
+
+    manager.onChakraChange = (chakra, index) => {
+        document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
+        const card = document.getElementById(`chakra-card-${index}`);
+        if (card) {
+            card.classList.add('active-chakra');
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
+
+    manager._startMeditation = (chakra) => {
+        manager.status = 'meditating';
+        const index = manager.currentIndex;
+        const audio = document.getElementById(`audio-${index}`);
+        const card = document.getElementById(`chakra-card-${index}`);
+        
+        if (audio) fadeInAudio(audio, 3000);
+        if (card) card.classList.add('meditating-now');
+
+        chakraTimer.start(
+            chakra.timerDuration || 1,
+            (remaining) => {
+                const display = document.getElementById(`timer-display-${index}`);
+                if (display) {
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    display.innerText = `${mins}:${secs.toString().padStart(2, '0')} Remaining`;
+                }
+            },
+            () => {
+                if (audio) {
+                    fadeOutAudio(audio, 3000, () => {
+                        if (card) card.classList.remove('meditating-now');
+                        manager._moveToNext();
+                    });
+                } else {
+                    if (card) card.classList.remove('meditating-now');
+                    manager._moveToNext();
+                }
+            }
+        );
+    };
+
+    manager.onComplete = () => {
+        document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
+        alert("Spiritual Journey Complete.");
+        const endBtn = document.getElementById('endSessionBtn');
+        if (endBtn) endBtn.click();
+    };
+
+    manager.startSession();
+  }
 });
 
 // Lightbox
@@ -183,8 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
       timerInterval = setInterval(updateDisplay, 1000);
   }
 
-  // Note: We are hooking into the EXISTING click listener added above
+  // Hooking into the click for legacy session duration tracking
   startSessionBtn.addEventListener('click', () => {
+      // Delay this until preparation countdown finished? 
+      // User likely wants the total duration to include preparation.
       startTime = Date.now();
       startSessionBtn.classList.add('hidden');
       endSessionBtn.classList.remove('hidden');
