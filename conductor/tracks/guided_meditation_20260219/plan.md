@@ -3,7 +3,7 @@
 ## Phase 1: Infrastructure & Testing Setup
 Establish a testing environment and baseline to support TDD and measure code coverage (>80%).
 
-- [ ] **Task 1: Initialize testing environment (Vitest/JSDOM).**
+- [x] **Task 1: Initialize testing environment (Vitest/JSDOM).** 6fd0d10
 - [ ] **Task 2: Create unit tests for existing `studio.html` logic (e.g., timer calculation).**
 - [ ] **Task 3: Refactor existing timer logic for testability.**
 - [ ] **Task 4: Conductor - User Manual Verification 'Phase 1: Infrastructure' (Protocol in workflow.md).**
