@@ -4,27 +4,29 @@ export class ChakraGuidance {
     this.currentUtterance = null; 
   }
 
+  /**
+   * Finds the best available Indian voice based on your logic and device availability.
+   */
   _getBestVoice() {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // 1. Try to find 'Lakshmi' as requested
-    const lakshmi = voices.find(v => v.name.includes('Lakshmi'));
-    if (lakshmi) return lakshmi;
+    // 1. Specific name-based matches (Priority for requested sweet voices)
+    const priorityNames = ['Lakshmi', 'Lekha', 'Veena', 'Sangeeta', 'Heera'];
+    for (const name of priorityNames) {
+        const found = voices.find(v => v.name.includes(name));
+        if (found) return found;
+    }
 
-    // 2. Fallback to 'Lekha' (the high-quality voice detected on your device)
-    const lekha = voices.find(v => v.name.includes('Lekha'));
-    if (lekha) return lekha;
+    // 2. Snippet-inspired: Find a voice that matches en-IN and includes 'India'
+    const indianVoice = voices.find(v => v.lang === 'en-IN' && v.name.includes('India'));
+    if (indianVoice) return indianVoice;
 
-    // 3. General Indian female fallbacks
-    const indianFemaleNames = ['Sangeeta', 'Veena', 'Priya', 'Heera', 'Google हिन्दी'];
-    const preferred = voices.find(v => 
-      v.lang.includes('IN') && 
-      (indianFemaleNames.some(name => v.name.includes(name)) || v.name.toLowerCase().includes('female'))
-    );
-    if (preferred) return preferred;
+    // 3. Fallback to any en-IN voice
+    const anyEnIn = voices.find(v => v.lang === 'en-IN');
+    if (anyEnIn) return anyEnIn;
 
-    return voices.find(v => v.lang.includes('IN')) || null;
+    return null;
   }
 
   constructPhrases(chakra) {
@@ -47,9 +49,16 @@ export class ChakraGuidance {
     }
 
     this.currentUtterance = new SpeechSynthesisUtterance(phrases[index]);
-    const voice = this._getBestVoice();
-    if (voice) this.currentUtterance.voice = voice;
+    
+    // Snippet-inspired: Explicitly set language to English (India)
+    this.currentUtterance.lang = 'en-IN';
 
+    const voice = this._getBestVoice();
+    if (voice) {
+        this.currentUtterance.voice = voice;
+    }
+
+    // Meditative Configuration
     this.currentUtterance.rate = 0.7; 
     this.currentUtterance.pitch = 1.0; 
     this.currentUtterance.volume = 1.0;
@@ -69,7 +78,12 @@ export class ChakraGuidance {
 
   speakChakra(chakra, onEndCallback) {
     if (!this.synth) return;
-    this.synth.cancel();
+    
+    // Snippet-inspired: Cancel if there's a pending speech
+    if (this.synth.pending || this.synth.speaking) {
+      this.synth.cancel();
+    }
+
     const phrases = this.constructPhrases(chakra);
     this._speakPhrases(phrases, 0, onEndCallback);
   }
