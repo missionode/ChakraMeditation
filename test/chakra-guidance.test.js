@@ -40,7 +40,7 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should construct natural text for a chakra', () => {
+  it('should construct slow meditative text for a chakra', () => {
     const chakra = {
       name: 'Root Chakra',
       mantra: 'Lam',
@@ -51,17 +51,16 @@ describe('ChakraGuidance', () => {
     };
 
     const text = guidance.constructText(chakra);
-    expect(text).toContain('Focus on your Root Chakra');
-    expect(text).toContain('mantra for this chakra is, Lam');
+    expect(text).toContain('Now. . . Focus on your Root Chakra');
+    // Check for pause markers
+    expect(text).toMatch(/\. \. \. \./);
   });
 
-  it('should select an Indian voice and set refined rate/pitch', () => {
+  it('should set very slow meditative rate', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
-    expect(mockUtterance.voice.name).toBe('Veena');
-    expect(mockUtterance.rate).toBeCloseTo(0.88);
-    expect(mockUtterance.pitch).toBeCloseTo(1.05);
+    expect(mockUtterance.rate).toBeCloseTo(0.65);
   });
 
   it('should trigger callback after 2s pause', () => {
