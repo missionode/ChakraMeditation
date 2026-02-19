@@ -29,8 +29,8 @@ Implement the `MeditationSessionManager` to handle the serialized flow between c
 ## Phase 4: Integration & Visual Polish
 Refactor `studio.html` to use the new automated flow and add breathing animations.
 
-- [ ] **Task 15: Write integration tests for the guided meditation UI.**
-- [ ] **Task 16: Integrate `MeditationSessionManager` with `studio.html` Start Session button.**
-- [ ] **Task 17: Implement CSS pulsing animations for the active chakra symbol.**
-- [ ] **Task 18: Final end-to-end verification of the serialized flow on mobile.**
-- [ ] **Task 19: Conductor - User Manual Verification 'Phase 4: Integration' (Protocol in workflow.md).**
+- [x] **Task 15: Write integration tests for the guided meditation UI.** d5b9fb3
+- [x] **Task 16: Integrate `MeditationSessionManager` with `studio.html` Start Session button.** f77ad23
+- [x] **Task 17: Implement CSS pulsing animations for the active chakra symbol.** f77ad23
+- [x] **Task 18: Final end-to-end verification of the serialized flow on mobile.** 2a6b2d2
+- [x] **Task 19: Conductor - User Manual Verification 'Phase 4: Integration' (Protocol in workflow.md).** 2a6b2d2
