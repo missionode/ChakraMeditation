@@ -1,0 +1,24 @@
+{
+  "name": "chakrameditation",
+  "version": "1.0.0",
+  "description": "### What is this? Chakra PWA",
+  "main": "main.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/missionode/ChakraMeditation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/missionode/ChakraMeditation/issues"
+  },
+  "homepage": "https://github.com/missionode/ChakraMeditation#readme",
+  "devDependencies": {
+    "jsdom": "^28.1.0",
+    "vitest": "^4.0.18"
+  }
+}
