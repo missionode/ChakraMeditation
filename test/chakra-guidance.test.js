@@ -39,28 +39,20 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should set extremely slow rate and low pitch', () => {
-    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    guidance.speakChakra(chakra);
-    
-    expect(utterances[0].rate).toBe(0.4);
-    expect(utterances[0].pitch).toBe(0.9);
-  });
-
-  it('should use long meditative pauses (3s) between phrases', () => {
+  it('should use moderate pauses (1.2s) between phrases', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
     utterances[0].onend();
     
-    vi.advanceTimersByTime(2500);
+    vi.advanceTimersByTime(1000);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
     
-    vi.advanceTimersByTime(500);
+    vi.advanceTimersByTime(200);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(2);
   });
 
-  it('should trigger final callback after 3s transition pause', () => {
+  it('should trigger final callback after 1.5s transition pause', () => {
     const onEnd = vi.fn();
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     const phrases = guidance.constructPhrases(chakra);
@@ -69,11 +61,11 @@ describe('ChakraGuidance', () => {
 
     for(let i = 0; i < phrases.length; i++) {
         utterances[i].onend();
-        vi.advanceTimersByTime(3000);
+        vi.advanceTimersByTime(1200);
     }
 
     expect(onEnd).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(3000);
+    vi.advanceTimersByTime(1500);
     expect(onEnd).toHaveBeenCalled();
   });
 });

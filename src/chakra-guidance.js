@@ -18,24 +18,24 @@ export class ChakraGuidance {
    */
   constructPhrases(chakra) {
     return [
-      `Now. . . . . Focus. . . . . on your. . . . . ${chakra.name}.`,
-      `The mantra. . . for this chakra. . . . . is. . . . . ${chakra.mantra}.`,
-      `Gently. . . . . locate your focus. . . . . at the. . . . . ${chakra.location}.`,
-      `It embodies. . . . . the power. . . . . of. . . . . ${chakra.feature}.`,
-      `And is associated. . . . . with the element. . . . . ${chakra.element}.`,
+      `Now. . . Focus. . . on your. . . ${chakra.name}.`,
+      `The mantra. . . for this chakra. . . is. . . ${chakra.mantra}.`,
+      `Gently. . . locate your focus. . . at the. . . ${chakra.location}.`,
+      `It embodies. . . the power. . . of. . . ${chakra.feature}.`,
+      `And is associated. . . with the element. . . ${chakra.element}.`,
       `${chakra.description}.`
     ];
   }
 
   /**
-   * Recursively speaks phrases with long meditative pauses.
+   * Recursively speaks phrases with moderate meditative pauses.
    */
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
-      // Final transition pause (3 seconds)
+      // Final transition pause (1.5 seconds)
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
-      }, 3000);
+      }, 1500);
       return;
     }
 
@@ -45,14 +45,14 @@ export class ChakraGuidance {
 
     // Extreme stretch tuning
     utterance.rate = 0.4;  // Extremely slow
-    utterance.pitch = 0.9; // Slightly lower for a smoother, warmer tone
+    utterance.pitch = 0.9; // Smooth tone
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // Deep meditative pause (3 seconds) between full stops
+      // Moderate pause (1.2 seconds) between full stops
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
-      }, 3000);
+      }, 1200);
     };
 
     utterance.onerror = () => {
