@@ -20,11 +20,11 @@ Implement the `ChakraGuidance` module using the Web Speech API.
 ## Phase 3: Session Flow & Automation
 Implement the `MeditationSessionManager` to handle the serialized flow between chakras.
 
-- [ ] **Task 10: Write unit tests for `MeditationSessionManager` (state transitions).**
-- [ ] **Task 11: Implement `MeditationSessionManager` to automate transitions (Guidance -> Pause -> Timer).**
-- [ ] **Task 12: Write tests for automatic advance to next chakra after bell rings.**
-- [ ] **Task 13: Implement sequential chakra advance logic.**
-- [ ] **Task 14: Conductor - User Manual Verification 'Phase 3: Session Flow' (Protocol in workflow.md).**
+- [x] **Task 10: Write unit tests for `MeditationSessionManager` (state transitions).** 30024f7
+- [x] **Task 11: Implement `MeditationSessionManager` to automate transitions (Guidance -> Pause -> Timer).** 30024f7
+- [x] **Task 12: Write tests for automatic advance to next chakra after bell rings.** d03dd7f
+- [x] **Task 13: Implement sequential chakra advance logic.** d03dd7f
+- [x] **Task 14: Conductor - User Manual Verification 'Phase 3: Session Flow' (Protocol in workflow.md).** d03dd7f
 
 ## Phase 4: Integration & Visual Polish
 Refactor `studio.html` to use the new automated flow and add breathing animations.
