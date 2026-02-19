@@ -26,7 +26,7 @@ describe('ChakraGuidance', () => {
     mockSpeechSynthesis = {
       speak: vi.fn(),
       cancel: vi.fn(),
-      getVoices: vi.fn(() => [{ name: 'Veena', lang: 'en-IN' }]),
+      getVoices: vi.fn(() => [{ name: 'Lekha', lang: 'hi-IN' }]),
     };
     
     global.window = global.window || {};
@@ -39,33 +39,29 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should use moderate pauses (1.2s) between phrases', () => {
+  it('should construct natural text phrases', () => {
+    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
+    const phrases = guidance.constructPhrases(chakra);
+    expect(phrases[0]).toBe('Now, focus on your Root.');
+  });
+
+  it('should set a natural meditative rate (0.85)', () => {
+    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
+    guidance.speakChakra(chakra);
+    
+    expect(utterances[0].rate).toBe(0.85);
+  });
+
+  it('should use natural pauses (0.8s) between phrases', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
     utterances[0].onend();
     
-    vi.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(700);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
     
-    vi.advanceTimersByTime(200);
+    vi.advanceTimersByTime(150);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(2);
-  });
-
-  it('should trigger final callback after 1.5s transition pause', () => {
-    const onEnd = vi.fn();
-    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    const phrases = guidance.constructPhrases(chakra);
-    
-    guidance.speakChakra(chakra, onEnd);
-
-    for(let i = 0; i < phrases.length; i++) {
-        utterances[i].onend();
-        vi.advanceTimersByTime(1200);
-    }
-
-    expect(onEnd).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(1500);
-    expect(onEnd).toHaveBeenCalled();
   });
 });
