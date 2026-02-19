@@ -4,29 +4,21 @@ export class ChakraGuidance {
     this.currentUtterance = null; 
   }
 
-  /**
-   * Finds the best available Indian voice based on your logic and device availability.
-   */
   _getBestVoice() {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // 1. Specific name-based matches (Priority for requested sweet voices)
     const priorityNames = ['Lakshmi', 'Lekha', 'Veena', 'Sangeeta', 'Heera'];
     for (const name of priorityNames) {
         const found = voices.find(v => v.name.includes(name));
         if (found) return found;
     }
 
-    // 2. Snippet-inspired: Find a voice that matches en-IN and includes 'India'
+    // Snippet-inspired: Find a voice that matches en-IN and includes 'India'
     const indianVoice = voices.find(v => v.lang === 'en-IN' && v.name.includes('India'));
     if (indianVoice) return indianVoice;
 
-    // 3. Fallback to any en-IN voice
-    const anyEnIn = voices.find(v => v.lang === 'en-IN');
-    if (anyEnIn) return anyEnIn;
-
-    return null;
+    return voices.find(v => v.lang === 'en-IN') || null;
   }
 
   constructPhrases(chakra) {
@@ -48,17 +40,18 @@ export class ChakraGuidance {
       return;
     }
 
+    const voice = this._getBestVoice();
     this.currentUtterance = new SpeechSynthesisUtterance(phrases[index]);
     
-    // Snippet-inspired: Explicitly set language to English (India)
-    this.currentUtterance.lang = 'en-IN';
-
-    const voice = this._getBestVoice();
     if (voice) {
         this.currentUtterance.voice = voice;
+        // CRITICAL FIX: Match utterance language to the selected voice's language
+        this.currentUtterance.lang = voice.lang;
+    } else {
+        // Snippet-inspired fallback
+        this.currentUtterance.lang = 'en-IN';
     }
 
-    // Meditative Configuration
     this.currentUtterance.rate = 0.7; 
     this.currentUtterance.pitch = 1.0; 
     this.currentUtterance.volume = 1.0;
@@ -70,6 +63,7 @@ export class ChakraGuidance {
     };
 
     this.currentUtterance.onerror = (e) => {
+      console.error("Speech error:", e);
       this._speakPhrases(phrases, index + 1, onEndCallback);
     };
 
@@ -79,10 +73,8 @@ export class ChakraGuidance {
   speakChakra(chakra, onEndCallback) {
     if (!this.synth) return;
     
-    // Snippet-inspired: Cancel if there's a pending speech
-    if (this.synth.pending || this.synth.speaking) {
-      this.synth.cancel();
-    }
+    // Cancel any current speech to start fresh
+    this.synth.cancel();
 
     const phrases = this.constructPhrases(chakra);
     this._speakPhrases(phrases, 0, onEndCallback);

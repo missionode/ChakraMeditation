@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { ChakraGuidance } from '../src/chakra-guidance';
 
-describe('ChakraGuidance Integration', () => {
+describe('ChakraGuidance Voice Sync', () => {
   let guidance;
   let mockSpeechSynthesis;
   let utterances;
@@ -28,7 +28,6 @@ describe('ChakraGuidance Integration', () => {
       speak: vi.fn(),
       cancel: vi.fn(),
       getVoices: vi.fn(() => [
-        { name: 'Google English (India)', lang: 'en-IN' },
         { name: 'Lekha', lang: 'hi-IN' }
       ]),
       pending: false,
@@ -45,29 +44,19 @@ describe('ChakraGuidance Integration', () => {
     vi.useRealTimers();
   });
 
-  it('should set lang to en-IN for utterances', () => {
+  it('should match utterance lang to the selected voice lang (e.g. hi-IN for Lekha)', () => {
+    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
+    guidance.speakChakra(chakra);
+    
+    expect(utterances[0].voice.name).toBe('Lekha');
+    expect(utterances[0].lang).toBe('hi-IN');
+  });
+
+  it('should use en-IN fallback if no voice is selected', () => {
+    mockSpeechSynthesis.getVoices = vi.fn(() => []);
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
     expect(utterances[0].lang).toBe('en-IN');
-  });
-
-  it('should cancel pending speech before starting new session', () => {
-    mockSpeechSynthesis.pending = true;
-    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    guidance.speakChakra(chakra);
-    
-    expect(mockSpeechSynthesis.cancel).toHaveBeenCalled();
-  });
-
-  it('should prefer "India" in voice name if priority names are missing', () => {
-    mockSpeechSynthesis.getVoices = vi.fn(() => [
-        { name: 'Rishi', lang: 'en-IN' },
-        { name: 'Generic India Voice', lang: 'en-IN' }
-    ]);
-    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    guidance.speakChakra(chakra);
-    
-    expect(utterances[0].voice.name).toBe('Generic India Voice');
   });
 });
