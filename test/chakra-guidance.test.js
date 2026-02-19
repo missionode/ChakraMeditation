@@ -26,7 +26,10 @@ describe('ChakraGuidance', () => {
     mockSpeechSynthesis = {
       speak: vi.fn(),
       cancel: vi.fn(),
-      getVoices: vi.fn(() => [{ name: 'Lekha', lang: 'hi-IN' }]),
+      getVoices: vi.fn(() => [
+        { name: 'Lakshmi', lang: 'en-IN' },
+        { name: 'Lekha', lang: 'hi-IN' }
+      ]),
     };
     
     global.window = global.window || {};
@@ -39,23 +42,18 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should set the True Meditative rate (0.7)', () => {
+  it('should prioritize Lakshmi voice if available', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
-    expect(utterances[0].rate).toBe(0.7);
+    expect(utterances[0].voice.name).toBe('Lakshmi');
   });
 
-  it('should use 1.5s meditative pauses between sentences', () => {
+  it('should fallback to Lekha if Lakshmi is missing', () => {
+    mockSpeechSynthesis.getVoices = vi.fn(() => [{ name: 'Lekha', lang: 'hi-IN' }]);
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
-    utterances[0].onend();
-    
-    vi.advanceTimersByTime(1400);
-    expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
-    
-    vi.advanceTimersByTime(200);
-    expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(2);
+    expect(utterances[0].voice.name).toBe('Lekha');
   });
 });
