@@ -7,25 +7,23 @@ export class ChakraGuidance {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // List of known high-quality Indian English female voices across platforms
-    const indianFemaleNames = ['Veena', 'Heera', 'Sangeeta', 'Priya', 'Neerja', 'Google English (India)'];
-    
-    // 1. Try to find a specific Indian English female voice by name or 'Female' tag
+    // 1. Specifically target 'Lekha' - the sweet Indian female voice found on your device
+    const lekha = voices.find(v => v.name.includes('Lekha'));
+    if (lekha) return lekha;
+
+    // 2. Fallback to any other Indian female voice names just in case
+    const indianFemaleNames = ['Sangeeta', 'Veena', 'Priya', 'Heera', 'Google हिन्दी'];
     const preferred = voices.find(v => 
       v.lang.includes('IN') && 
       (indianFemaleNames.some(name => v.name.includes(name)) || v.name.toLowerCase().includes('female'))
     );
     if (preferred) return preferred;
 
-    // 2. Fallback to any Indian English voice that doesn't explicitly say 'Male'
-    const anyIndian = voices.find(v => v.lang.includes('IN') && !v.name.toLowerCase().includes('male'));
-    if (anyIndian) return anyIndian;
+    // 3. Fallback to a clear English female voice if no Indian female is found
+    const englishFemale = voices.find(v => v.name.includes('Google UK English Female') || v.name.includes('Samantha'));
+    if (englishFemale) return englishFemale;
 
-    // 3. Fallback to any English female voice (US/UK/AU) for the 'sweet' tone
-    const anyFemale = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'));
-    if (anyFemale) return anyFemale;
-
-    // 4. Last resort: first Indian voice found
+    // 4. Last resort
     return voices.find(v => v.lang.includes('IN')) || null;
   }
 
@@ -53,11 +51,12 @@ export class ChakraGuidance {
     
     if (voice) {
       utterance.voice = voice;
-      if (index === 0) console.log("ChakraGuidance selecting voice:", voice.name, voice.lang);
+      if (index === 0) console.log("ChakraGuidance selected voice:", voice.name);
     }
 
-    utterance.rate = 0.4;  
-    utterance.pitch = 1.1; // Slightly higher pitch helps a voice sound more female/sweet
+    // Meditation Tuning
+    utterance.rate = 0.45; // Extremely slow and stretchy
+    utterance.pitch = 1.0; 
     utterance.volume = 1.0;
 
     utterance.onend = () => {
