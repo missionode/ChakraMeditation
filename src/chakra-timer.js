@@ -23,10 +23,13 @@ export class ChakraTimer {
       if (--timer < 0) {
         this.stop();
         this._playBell();
-        if (onEnd) onEnd();
+        
+        // Wait 3 seconds for the bell to resonate and provide a gap before next chakra
+        setTimeout(() => {
+            if (onEnd) onEnd();
+        }, 3000);
       }
 
-      // Signal "5 seconds left" if needed (legacy behavior)
       if (timer === 5) {
         this._playBell();
       }

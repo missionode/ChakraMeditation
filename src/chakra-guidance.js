@@ -1,27 +1,27 @@
 export class ChakraGuidance {
   constructor() {
     this.synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
-    this.currentUtterance = null; 
+    this.currentUtterance = null; // Fix for the "stops after one phrase" bug
   }
 
   _getBestVoice() {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    const priorityNames = ['Lakshmi', 'Lekha', 'Veena', 'Sangeeta', 'Heera'];
-    for (const name of priorityNames) {
-        const found = voices.find(v => v.name.includes(name));
-        if (found) return found;
-    }
+    // Specifically target Lekha for the sweet Indian female tone
+    const lekha = voices.find(v => v.name.includes('Lekha'));
+    if (lekha) return lekha;
 
-    // Snippet-inspired: Find a voice that matches en-IN and includes 'India'
-    const indianVoice = voices.find(v => v.lang === 'en-IN' && v.name.includes('India'));
-    if (indianVoice) return indianVoice;
-
-    return voices.find(v => v.lang === 'en-IN') || null;
+    const indianFemaleNames = ['Sangeeta', 'Veena', 'Priya', 'Heera', 'Google हिन्दी'];
+    const preferred = voices.find(v => 
+      v.lang.includes('IN') && 
+      (indianFemaleNames.some(name => v.name.includes(name)) || v.name.toLowerCase().includes('female'))
+    );
+    return preferred || voices.find(v => v.lang.includes('IN')) || null;
   }
 
   constructPhrases(chakra) {
+    // Restoring the "True Meditative" phrasing with internal commas for flow
     return [
       `Now, bring your focus, to your ${chakra.name}.`,
       `The sacred mantra, for this chakra, is ${chakra.mantra}.`,
@@ -45,13 +45,10 @@ export class ChakraGuidance {
     
     if (voice) {
         this.currentUtterance.voice = voice;
-        // CRITICAL FIX: Match utterance language to the selected voice's language
-        this.currentUtterance.lang = voice.lang;
-    } else {
-        // Snippet-inspired fallback
-        this.currentUtterance.lang = 'en-IN';
+        this.currentUtterance.lang = voice.lang; // Ensure lang matches voice
     }
 
+    // Restoring working Rate 0.7
     this.currentUtterance.rate = 0.7; 
     this.currentUtterance.pitch = 1.0; 
     this.currentUtterance.volume = 1.0;
@@ -72,10 +69,7 @@ export class ChakraGuidance {
 
   speakChakra(chakra, onEndCallback) {
     if (!this.synth) return;
-    
-    // Cancel any current speech to start fresh
     this.synth.cancel();
-
     const phrases = this.constructPhrases(chakra);
     this._speakPhrases(phrases, 0, onEndCallback);
   }
