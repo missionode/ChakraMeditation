@@ -7,7 +7,7 @@ export class ChakraGuidance {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // Specifically target 'Lekha' for the natural Indian female tone
+    // Lekha is the high-quality natural Indian female voice on your device
     const lekha = voices.find(v => v.name.includes('Lekha'));
     if (lekha) return lekha;
 
@@ -22,24 +22,25 @@ export class ChakraGuidance {
   }
 
   /**
-   * Constructs phrases with natural punctuation for better intonation.
+   * Constructs phrases with strategic punctuation for maximum clarity and meditative flow.
    */
   constructPhrases(chakra) {
     return [
-      `Now, focus on your ${chakra.name}.`,
-      `The mantra for this chakra is ${chakra.mantra}.`,
-      `Gently locate your focus at the ${chakra.location}.`,
-      `It embodies the power of ${chakra.feature},`,
-      `and is associated with the element ${chakra.element}.`,
+      `Gently, focus your attention, on your, ${chakra.name}.`,
+      `The sacred mantra, for this chakra, is, ${chakra.mantra}.`,
+      `Locate your awareness, at the, ${chakra.location}.`,
+      `It embodies, the power of, ${chakra.feature}.`,
+      `And is associated, with the element, ${chakra.element}.`,
       `${chakra.description}.`
     ];
   }
 
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
+      // Mindful pause before the meditation music starts
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
-      }, 1000); // 1s final pause
+      }, 2000); 
       return;
     }
 
@@ -50,16 +51,16 @@ export class ChakraGuidance {
       utterance.voice = voice;
     }
 
-    // Normalizing for a clear, natural, yet calm flow
-    utterance.rate = 0.85; 
+    // Meditative Configuration: 0.72 is slow enough for clarity but fast enough to sound natural
+    utterance.rate = 0.72; 
     utterance.pitch = 1.0; 
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // Natural pause between sentences
+      // 1.5s pause between sentences for reflection
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
-      }, 800);
+      }, 1500);
     };
 
     utterance.onerror = (e) => {
