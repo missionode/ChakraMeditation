@@ -8,7 +8,7 @@ Establish a testing environment and baseline to support TDD and measure code cov
 - [x] **Task 3: Refactor existing timer logic for testability.** a613619
 - [x] **Task 4: Conductor - User Manual Verification 'Phase 1: Infrastructure' (Protocol in workflow.md).** a613619
 
-## Phase 2: Audio Guidance (Narration)
+## Phase 2: Audio Guidance (Narration) [checkpoint: b14814c]
 Implement the `ChakraGuidance` module using the Web Speech API.
 
 - [x] **Task 5: Write unit tests for `ChakraGuidance` (narration logic).** c8377ae
