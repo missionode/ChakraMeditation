@@ -11,11 +11,11 @@ Establish a testing environment and baseline to support TDD and measure code cov
 ## Phase 2: Audio Guidance (Narration)
 Implement the `ChakraGuidance` module using the Web Speech API.
 
-- [ ] **Task 5: Write unit tests for `ChakraGuidance` (narration logic).**
-- [ ] **Task 6: Implement `ChakraGuidance` to read Chakra Name, Mantra, and Description.**
-- [ ] **Task 7: Write tests for narration tone and pacing (mocked speechSynthesis).**
-- [ ] **Task 8: Refine narration with a 2-3 second post-narration pause.**
-- [ ] **Task 9: Conductor - User Manual Verification 'Phase 2: Narration' (Protocol in workflow.md).**
+- [x] **Task 5: Write unit tests for `ChakraGuidance` (narration logic).** c8377ae
+- [x] **Task 6: Implement `ChakraGuidance` to read Chakra Name, Mantra, and Description.** c8377ae
+- [x] **Task 7: Write tests for narration tone and pacing (mocked speechSynthesis).** c8377ae
+- [x] **Task 8: Refine narration with a 2-3 second post-narration pause.** c8377ae
+- [x] **Task 9: Conductor - User Manual Verification 'Phase 2: Narration' (Protocol in workflow.md).** c8377ae
 
 ## Phase 3: Session Flow & Automation
 Implement the `MeditationSessionManager` to handle the serialized flow between chakras.
