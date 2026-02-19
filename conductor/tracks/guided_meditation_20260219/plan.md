@@ -26,7 +26,7 @@ Implement the `MeditationSessionManager` to handle the serialized flow between c
 - [x] **Task 13: Implement sequential chakra advance logic.** d03dd7f
 - [x] **Task 14: Conductor - User Manual Verification 'Phase 3: Session Flow' (Protocol in workflow.md).** d03dd7f
 
-## Phase 4: Integration & Visual Polish
+## Phase 4: Integration & Visual Polish [checkpoint: 29acb46]
 Refactor `studio.html` to use the new automated flow and add breathing animations.
 
 - [x] **Task 15: Write integration tests for the guided meditation UI.** d5b9fb3
