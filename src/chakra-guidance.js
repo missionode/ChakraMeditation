@@ -13,43 +13,62 @@ export class ChakraGuidance {
     return null;
   }
 
-  constructText(chakra) {
-    // Increased punctuation (commas and periods) to force longer pauses between ideas.
-    return `Now. . . Focus on your ${chakra.name}. . . . . 
-            The mantra for this chakra. . . is. . . ${chakra.mantra}. . . . . 
-            Gently locate your focus. . . at the ${chakra.location}. . . . . 
-            It embodies the power. . . of ${chakra.feature}. . . . . 
-            And is associated. . . with the element. . . ${chakra.element}. . . . . 
-            ${chakra.description}. . . . .`;
+  /**
+   * Constructs an array of phrases to allow for controlled pauses between sentences.
+   */
+  constructPhrases(chakra) {
+    return [
+      `Now. . . Focus on your ${chakra.name}.`,
+      `The mantra for this chakra. . . is. . . ${chakra.mantra}.`,
+      `Gently. . . locate your focus. . . at the ${chakra.location}.`,
+      `It embodies the power. . . of ${chakra.feature}.`,
+      `And is associated. . . with the element. . . ${chakra.element}.`,
+      `${chakra.description}.`
+    ];
+  }
+
+  /**
+   * Recursively speaks an array of phrases with a delay between each.
+   */
+  _speakPhrases(phrases, index, onEndCallback) {
+    if (index >= phrases.length) {
+      // Final transition pause after the last phrase is finished
+      setTimeout(() => {
+        if (onEndCallback) onEndCallback();
+      }, 2000);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(phrases[index]);
+    const voice = this._getBestVoice();
+    if (voice) utterance.voice = voice;
+
+    // Stretchy, very slow pace
+    utterance.rate = 0.5; 
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    utterance.onend = () => {
+      // Pause after full stop (1.5 seconds) before next phrase
+      setTimeout(() => {
+        this._speakPhrases(phrases, index + 1, onEndCallback);
+      }, 1500);
+    };
+
+    utterance.onerror = () => {
+      // Fallback to continue on error
+      this._speakPhrases(phrases, index + 1, onEndCallback);
+    };
+
+    this.synth.speak(utterance);
   }
 
   speakChakra(chakra, onEndCallback) {
-    const text = this.constructText(chakra);
-    const utterance = new SpeechSynthesisUtterance(text);
+    if (!this.synth) return;
     
-    const voice = this._getBestVoice();
-    if (voice) {
-      utterance.voice = voice;
-    }
-
-    // Meditation Tuning: Very slow and clear
-    utterance.rate = 0.65; 
-    utterance.pitch = 1.0; 
-    utterance.volume = 1.0;
-
-    if (onEndCallback) {
-      utterance.onend = () => {
-        // Mindful transition: Keep the 2 second pause after the final word
-        setTimeout(() => {
-          onEndCallback();
-        }, 2000);
-      };
-    }
-
-    if (this.synth) {
-      this.synth.cancel();
-      this.synth.speak(utterance);
-    }
+    this.synth.cancel();
+    const phrases = this.constructPhrases(chakra);
+    this._speakPhrases(phrases, 0, onEndCallback);
   }
 
   cancel() {
