@@ -22,22 +22,23 @@ export class ChakraGuidance {
   }
 
   /**
-   * Constructs phrases with strategic punctuation for maximum clarity and meditative flow.
+   * Constructs full, natural sentences.
+   * We rely on the TTS engine's natural prosody within the sentence,
+   * and insert our meditative pauses BETWEEN the sentences.
    */
   constructPhrases(chakra) {
     return [
-      `Gently, focus your attention, on your, ${chakra.name}.`,
-      `The sacred mantra, for this chakra, is, ${chakra.mantra}.`,
-      `Locate your awareness, at the, ${chakra.location}.`,
-      `It embodies, the power of, ${chakra.feature}.`,
-      `And is associated, with the element, ${chakra.element}.`,
+      `Now, bring your focus to your ${chakra.name}.`,
+      `The sacred mantra for this chakra is ${chakra.mantra}.`,
+      `Gently locate your awareness at the ${chakra.location}.`,
+      `It embodies the power of ${chakra.feature}, and is associated with the element, ${chakra.element}.`,
       `${chakra.description}.`
     ];
   }
 
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
-      // Mindful pause before the meditation music starts
+      // Final meditative silence before music starts
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
       }, 2000); 
@@ -51,16 +52,16 @@ export class ChakraGuidance {
       utterance.voice = voice;
     }
 
-    // Meditative Configuration: 0.72 is slow enough for clarity but fast enough to sound natural
-    utterance.rate = 0.72; 
-    utterance.pitch = 1.0; 
+    // Research-backed Meditative "Sweet Spot"
+    utterance.rate = 0.85;  // Slow, but natural (avoids robotic stretching)
+    utterance.pitch = 0.9;  // Slightly deeper/warmer for a soothing effect
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // 1.5s pause between sentences for reflection
+      // The "Breath" Pause: 1.8 seconds of silence between ideas
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
-      }, 1500);
+      }, 1800);
     };
 
     utterance.onerror = (e) => {
