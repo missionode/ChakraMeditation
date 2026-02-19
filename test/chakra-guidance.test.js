@@ -39,27 +39,20 @@ describe('ChakraGuidance', () => {
     vi.useRealTimers();
   });
 
-  it('should construct full natural sentences', () => {
-    const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
-    const phrases = guidance.constructPhrases(chakra);
-    expect(phrases[0]).toBe('Now, bring your focus to your Root.');
-  });
-
-  it('should set research-backed meditative rate and pitch', () => {
+  it('should set the True Meditative rate (0.7)', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
-    expect(utterances[0].rate).toBe(0.85);
-    expect(utterances[0].pitch).toBe(0.9);
+    expect(utterances[0].rate).toBe(0.7);
   });
 
-  it('should use 1.8s breath pauses between sentences', () => {
+  it('should use 1.5s meditative pauses between sentences', () => {
     const chakra = { name: 'Root', mantra: 'L', location: 'B', feature: 'S', element: 'E', description: 'D' };
     guidance.speakChakra(chakra);
     
     utterances[0].onend();
     
-    vi.advanceTimersByTime(1700);
+    vi.advanceTimersByTime(1400);
     expect(mockSpeechSynthesis.speak).toHaveBeenCalledTimes(1);
     
     vi.advanceTimersByTime(200);

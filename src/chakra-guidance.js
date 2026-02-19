@@ -7,7 +7,7 @@ export class ChakraGuidance {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // Lekha is the high-quality natural Indian female voice on your device
+    // Lekha is the target voice
     const lekha = voices.find(v => v.name.includes('Lekha'));
     if (lekha) return lekha;
 
@@ -22,23 +22,20 @@ export class ChakraGuidance {
   }
 
   /**
-   * Constructs full, natural sentences.
-   * We rely on the TTS engine's natural prosody within the sentence,
-   * and insert our meditative pauses BETWEEN the sentences.
+   * Constructs sentences with intentional commas to slow down the internal flow.
    */
   constructPhrases(chakra) {
     return [
-      `Now, bring your focus to your ${chakra.name}.`,
-      `The sacred mantra for this chakra is ${chakra.mantra}.`,
-      `Gently locate your awareness at the ${chakra.location}.`,
-      `It embodies the power of ${chakra.feature}, and is associated with the element, ${chakra.element}.`,
+      `Now, bring your focus, to your ${chakra.name}.`,
+      `The sacred mantra, for this chakra, is ${chakra.mantra}.`,
+      `Gently locate, your awareness, at the ${chakra.location}.`,
+      `It embodies, the power of ${chakra.feature}, and is associated, with the element, ${chakra.element}.`,
       `${chakra.description}.`
     ];
   }
 
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
-      // Final meditative silence before music starts
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
       }, 2000); 
@@ -52,16 +49,16 @@ export class ChakraGuidance {
       utterance.voice = voice;
     }
 
-    // Research-backed Meditative "Sweet Spot"
-    utterance.rate = 0.85;  // Slow, but natural (avoids robotic stretching)
-    utterance.pitch = 0.9;  // Slightly deeper/warmer for a soothing effect
+    // "True Meditative" Pace: 0.7 is slow and clear.
+    utterance.rate = 0.7; 
+    utterance.pitch = 1.0; 
     utterance.volume = 1.0;
 
     utterance.onend = () => {
-      // The "Breath" Pause: 1.8 seconds of silence between ideas
+      // 1.5s meditative pause
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
-      }, 1800);
+      }, 1500);
     };
 
     utterance.onerror = (e) => {
