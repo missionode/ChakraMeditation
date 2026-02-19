@@ -17,7 +17,7 @@ Implement the `ChakraGuidance` module using the Web Speech API.
 - [x] **Task 8: Refine narration with a 2-3 second post-narration pause.** c8377ae
 - [x] **Task 9: Conductor - User Manual Verification 'Phase 2: Narration' (Protocol in workflow.md).** c8377ae
 
-## Phase 3: Session Flow & Automation
+## Phase 3: Session Flow & Automation [checkpoint: d5b9fb3]
 Implement the `MeditationSessionManager` to handle the serialized flow between chakras.
 
 - [x] **Task 10: Write unit tests for `MeditationSessionManager` (state transitions).** 30024f7
