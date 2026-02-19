@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Session Flow Verification</h1>
+    <button id="startBtn">Start Simulated Session</button>
+    <div id="status" style="font-size: 1.5em; margin-top: 20px; color: #674aeb;">Status: Idle</div>
+    <div id="log" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll;"></div>
+
+    <script type="module">
+        import { MeditationSessionManager } from './src/meditation-session-manager.js';
+        import { ChakraGuidance } from './src/chakra-guidance.js';
+        
+        function log(msg) {
+            const div = document.createElement('div');
+            div.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            document.getElementById('log').prepend(div);
+        }
+
+        const testChakras = [
+            { name: "Root Chakra", mantra: "Lam", location: "Base", feature: "Stability", element: "Earth", description: "Rooted.", timerDuration: 0.1 }, // 6 seconds for test
+            { name: "Sacral Chakra", mantra: "Vam", location: "Navel", feature: "Creativity", element: "Water", description: "Flowing.", timerDuration: 0.1 }
+        ];
+
+        const guidance = new ChakraGuidance();
+        
+        // Mock Timer for verification (real one will be integrated in Phase 4)
+        const mockTimer = {
+            start: (duration, onTick, onEnd) => {
+                log(`Timer started for ${duration} minutes`);
+                setTimeout(() => {
+                    log("Timer finished (Bell Rings)");
+                    onEnd();
+                }, 5000); // 5 second meditation for simulation
+            }
+        };
+
+        const manager = new MeditationSessionManager(testChakras, guidance, mockTimer);
+        
+        manager.onChakraChange = (chakra, index) => {
+            document.getElementById('status').innerText = `Status: Guidance - ${chakra.name}`;
+            log(`Starting Guidance for ${chakra.name}`);
+        };
+
+        manager.onComplete = () => {
+            document.getElementById('status').innerText = "Status: Session Completed";
+            log("Session Complete");
+            alert("Session Complete!");
+        };
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            log("Session Starting...");
+            manager.startSession();
+        });
+    </script>
+</body>
+</html>

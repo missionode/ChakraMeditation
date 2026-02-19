@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body style="background: #0d012a; color: white; font-family: sans-serif; padding: 20px;">
+    <h1>Narration & Voice Verification</h1>
+    <p>Check the console (F12) to see which voice is being selected.</p>
+    
+    <button id="testBtn" style="padding: 10px 20px; cursor: pointer;">Test Meditative Narration</button>
+    <button id="listVoicesBtn" style="padding: 10px 20px; cursor: pointer; margin-left: 10px;">List All System Voices</button>
+    
+    <div id="status" style="margin-top: 20px; font-size: 1.2em; color: #b5e48c;">Ready</div>
+    
+    <div id="voiceList" style="margin-top: 30px; font-family: monospace; font-size: 0.9em; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;"></div>
+
+    <script type="module">
+        import { ChakraGuidance } from './src/chakra-guidance.js';
+        
+        const guidance = new ChakraGuidance();
+        const testChakra = {
+            name: "Root Chakra",
+            mantra: "Lam",
+            location: "Base of spine",
+            feature: "Stability",
+            element: "Earth",
+            description: "The foundation of our being."
+        };
+
+        document.getElementById('testBtn').addEventListener('click', () => {
+            document.getElementById('status').innerText = "Speaking (Slow, Stretchy)...";
+            guidance.speakChakra(testChakra, () => {
+                document.getElementById('status').innerText = "Narration Complete.";
+            });
+        });
+
+        document.getElementById('listVoicesBtn').addEventListener('click', () => {
+            const voices = window.speechSynthesis.getVoices();
+            const listEl = document.getElementById('voiceList');
+            listEl.innerHTML = "<strong>Detected Voices:</strong><br><br>";
+            voices.forEach(v => {
+                listEl.innerHTML += `${v.name} (${v.lang}) ${v.default ? '[DEFAULT]' : ''}<br>`;
+            });
+            if (voices.length === 0) {
+                listEl.innerHTML = "No voices detected yet. Try clicking again (voices load asynchronously).";
+            }
+        });
+
+        // Trigger voice loading
+        window.speechSynthesis.getVoices();
+    </script>
+</body>
+</html>
