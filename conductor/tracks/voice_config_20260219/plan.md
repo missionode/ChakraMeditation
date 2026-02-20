@@ -1,6 +1,6 @@
 # Implementation Plan: Voice Configuration System
 
-## Phase 1: UI Refactoring & Styling
+## Phase 1: UI Refactoring & Styling [checkpoint: 6220e4e]
 Transform the provided SPA into a cohesive part of the Chakra Meditation design system.
 
 - [x] **Task 1: Update `configure-voice.html` styles.** fa92db4
