@@ -52,7 +52,20 @@ export class MeditationSessionManager {
 
   _moveToNext() {
     this.currentIndex++;
-    this._processCurrentChakra();
+    if (this.currentIndex >= this.chakras.length) {
+        this.status = 'completed';
+        if (this.onComplete) this.onComplete();
+        return;
+    }
+
+    this.status = 'transition';
+    if (this.onChakraChange) {
+        this.onChakraChange(this.chakras[this.currentIndex], this.currentIndex, true);
+    }
+    
+    setTimeout(() => {
+        this._processCurrentChakra();
+    }, 5000); // 5-second preparation gap
   }
 
   stop() {

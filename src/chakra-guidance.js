@@ -1,17 +1,26 @@
+import { getStoredVoiceSettings } from './voice-settings.js';
+
 export class ChakraGuidance {
   constructor() {
     this.synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
-    this.currentUtterance = null; // Fix for the "stops after one phrase" bug
+    this.currentUtterance = null;
   }
 
-  _getBestVoice() {
+  _getBestVoice(preferredName) {
     if (!this.synth) return null;
     const voices = this.synth.getVoices();
     
-    // Specifically target Lekha for the sweet Indian female tone
+    // 1. Try preferred voice from settings
+    if (preferredName) {
+        const preferred = voices.find(v => v.name === preferredName);
+        if (preferred) return preferred;
+    }
+
+    // 2. Fallback to Lekha (our target)
     const lekha = voices.find(v => v.name.includes('Lekha'));
     if (lekha) return lekha;
 
+    // 3. Fallback to Indian female
     const indianFemaleNames = ['Sangeeta', 'Veena', 'Priya', 'Heera', 'Google हिन्दी'];
     const preferred = voices.find(v => 
       v.lang.includes('IN') && 
@@ -21,39 +30,42 @@ export class ChakraGuidance {
   }
 
   constructPhrases(chakra) {
-    // Restoring the "True Meditative" phrasing with internal commas for flow
     return [
       `Now, bring your focus, to your ${chakra.name}.`,
       `The sacred mantra, for this chakra, is ${chakra.mantra}.`,
       `Gently locate, your awareness, at the ${chakra.location}.`,
       `It embodies, the power of ${chakra.feature}, and is associated, with the element, ${chakra.element}.`,
-      `${chakra.description}.`
+      `${chakra.description}.`,
+      `It is deeply connected to your ${chakra.associated}.`
     ];
   }
 
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
       this.currentUtterance = null;
+      // Resonance gap before meditation starts
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
       }, 2000); 
       return;
     }
 
-    const voice = this._getBestVoice();
+    const settings = getStoredVoiceSettings();
+    const voice = this._getBestVoice(settings.voiceName);
+    
     this.currentUtterance = new SpeechSynthesisUtterance(phrases[index]);
     
     if (voice) {
         this.currentUtterance.voice = voice;
-        this.currentUtterance.lang = voice.lang; // Ensure lang matches voice
+        this.currentUtterance.lang = voice.lang;
     }
 
-    // Restoring working Rate 0.7
-    this.currentUtterance.rate = 0.7; 
-    this.currentUtterance.pitch = 1.0; 
-    this.currentUtterance.volume = 1.0;
+    this.currentUtterance.rate = settings.rate || 0.7; 
+    this.currentUtterance.pitch = settings.pitch || 1.0; 
+    this.currentUtterance.volume = settings.volume || 1.0;
 
     this.currentUtterance.onend = () => {
+      // 1.5s meditative pause between phrases
       setTimeout(() => {
         this._speakPhrases(phrases, index + 1, onEndCallback);
       }, 1500);
@@ -61,6 +73,7 @@ export class ChakraGuidance {
 
     this.currentUtterance.onerror = (e) => {
       console.error("Speech error:", e);
+      // Attempt to continue to next phrase on error
       this._speakPhrases(phrases, index + 1, onEndCallback);
     };
 
@@ -70,6 +83,7 @@ export class ChakraGuidance {
   speakChakra(chakra, onEndCallback) {
     if (!this.synth) return;
     this.synth.cancel();
+    
     const phrases = this.constructPhrases(chakra);
     this._speakPhrases(phrases, 0, onEndCallback);
   }

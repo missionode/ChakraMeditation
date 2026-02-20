@@ -72,7 +72,7 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
   // 1. Preparation Phase: 4-second countdown
   let countdown = 4;
   btn.disabled = true;
-  btn.style.backgroundColor = "#ffa500"; // Orange for preparation
+  btn.style.backgroundColor = "#ffa500"; 
   
   const countdownInterval = setInterval(() => {
       btn.value = `Prepare yourself... ${countdown}`;
@@ -81,7 +81,7 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
       if (countdown < 0) {
           clearInterval(countdownInterval);
           btn.value = originalText;
-          btn.style.backgroundColor = ""; // Reset color
+          btn.style.backgroundColor = ""; 
           btn.disabled = false;
           runSessionFlow();
       }
@@ -138,11 +138,16 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
 
     const manager = new MeditationSessionManager(sortedChakras, guidance, chakraTimer);
 
-    manager.onChakraChange = (chakra, index) => {
-        document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
+    manager.onChakraChange = (chakra, index, isTransition) => {
+        document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now', 'preparing-chakra'));
         const card = document.getElementById(`chakra-card-${index}`);
         if (card) {
             card.classList.add('active-chakra');
+            if (isTransition) {
+                card.classList.add('preparing-chakra');
+                const timerDisplay = document.getElementById(`timer-display-${index}`);
+                if (timerDisplay) timerDisplay.innerText = "Preparing... 5s";
+            }
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
@@ -153,6 +158,7 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
         const audio = document.getElementById(`audio-${index}`);
         const card = document.getElementById(`chakra-card-${index}`);
         
+        if (card) card.classList.remove('preparing-chakra');
         if (audio) fadeInAudio(audio, 3000);
         if (card) card.classList.add('meditating-now');
 
@@ -182,9 +188,22 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
 
     manager.onComplete = () => {
         document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
-        alert("Spiritual Journey Complete.");
-        const endBtn = document.getElementById('endSessionBtn');
-        if (endBtn) endBtn.click();
+        
+        // Show a nice completion overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(13,1,42,0.9); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#b5e48c; text-align:center; padding:20px;';
+        overlay.innerHTML = `
+            <h1 style="font-size:2.5rem; margin-bottom:20px;">Journey Complete</h1>
+            <p style="font-size:1.2rem; color:white; margin-bottom:30px;">Your energy centers are now aligned and balanced.</p>
+            <button id="closeCompleteBtn" style="background:#674aeb; color:white; border:none; padding:15px 40px; border-radius:30px; font-size:1.1rem; cursor:pointer; font-weight:600;">Namaste</button>
+        `;
+        document.body.appendChild(overlay);
+
+        document.getElementById('closeCompleteBtn').onclick = () => {
+            overlay.remove();
+            const endBtn = document.getElementById('endSessionBtn');
+            if (endBtn) endBtn.click();
+        };
     };
 
     manager.startSession();
@@ -245,10 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timerInterval = setInterval(updateDisplay, 1000);
   }
 
-  // Hooking into the click for legacy session duration tracking
   startSessionBtn.addEventListener('click', () => {
-      // Delay this until preparation countdown finished? 
-      // User likely wants the total duration to include preparation.
       startTime = Date.now();
       startSessionBtn.classList.add('hidden');
       endSessionBtn.classList.remove('hidden');

@@ -10,9 +10,9 @@ Transform the provided SPA into a cohesive part of the Chakra Meditation design 
 ## Phase 2: Persistence & Logic
 Implement the logic to save and load settings from `localStorage`.
 
-- [ ] **Task 4: Write unit tests for voice settings persistence.**
-- [ ] **Task 5: Implement save/load logic in `configure-voice.html`.**
-- [ ] **Task 6: Add "Voice Settings" CTA to `settings.html`.**
+- [x] **Task 4: Write unit tests for voice settings persistence.** c418295
+- [~] **Task 5: Implement save/load logic in `configure-voice.html`.**
+- [~] **Task 6: Add "Voice Settings" CTA to `settings.html`.**
 - [ ] **Task 7: Conductor - User Manual Verification 'Phase 2: Persistence' (Protocol in workflow.md).**
 
 ## Phase 3: Guidance Module Integration
