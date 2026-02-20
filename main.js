@@ -4,6 +4,45 @@ import { ChakraGuidance } from './src/chakra-guidance.js';
 import { ChakraTimer } from './src/chakra-timer.js';
 import { MeditationSessionManager } from './src/meditation-session-manager.js';
 
+/**
+ * Screen Wake Lock Management
+ */
+class WakeLockManager {
+    constructor() {
+        this.wakeLock = null;
+    }
+
+    async request() {
+        if ('wakeLock' in navigator) {
+            try {
+                this.wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock active: Screen will not sleep');
+                this.wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock released');
+                });
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+            }
+        }
+    }
+
+    release() {
+        if (this.wakeLock) {
+            this.wakeLock.release();
+            this.wakeLock = null;
+        }
+    }
+}
+
+const wakeLockManager = new WakeLockManager();
+
+// Re-acquire wake lock if page becomes visible again
+document.addEventListener('visibilitychange', async () => {
+    if (wakeLockManager.wakeLock !== null && document.visibilityState === 'visible') {
+        await wakeLockManager.request();
+    }
+});
+
 function toggleMenu() {
   const menu = document.getElementById('menu');
   if (menu) menu.classList.toggle('open');
@@ -68,6 +107,12 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
   event.preventDefault();
   const btn = event.target;
   const originalText = btn.value;
+
+  // PRIME SPEECH FOR MOBILE: Unlocks TTS by playing silence immediately on tap
+  if ('speechSynthesis' in window) {
+      const silentUtterance = new SpeechSynthesisUtterance("");
+      window.speechSynthesis.speak(silentUtterance);
+  }
   
   // 1. Preparation Phase: 4-second countdown
   let countdown = 4;
@@ -87,7 +132,10 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
       }
   }, 1000);
 
-  function runSessionFlow() {
+  async function runSessionFlow() {
+    // Request Wake Lock as soon as meditation logic begins
+    await wakeLockManager.request();
+
     const progressValues = Array.from(document.querySelectorAll("input.ival")).map((input) => parseInt(input.value));
     const sortedChakras = sortChakrasByProgress(chakras, progressValues);
     
@@ -127,8 +175,9 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
         <p><strong>Description: ${chakra.description}</strong></p>
         <p>${chakra.associated}</p>
         <div style="margin-top:20px;" class="audio-player-container">
-          <audio loop class="mantra-audio" id="audio-${index}">
-            <source src="${chakra.audio}">
+          <audio loop class="mantra-audio" id="audio-${index}" src="${chakra.audio}" preload="auto" 
+            onplay="console.log('Successfully playing: ${chakra.audio}')" 
+            onerror="alert('Error loading audio for ' + '${chakra.name}' + ': ' + '${chakra.audio}'); console.error('Audio Error:', this.error)">
           </audio>
         </div>
         <div class="timer-display" id="timer-display-${index}">${chakra.timerDuration} Minute Session</div>
@@ -187,6 +236,9 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
     };
 
     manager.onComplete = () => {
+        // Release Wake Lock
+        wakeLockManager.release();
+
         document.querySelectorAll('.chakra-card').forEach(c => c.classList.remove('active-chakra', 'meditating-now'));
         
         // Show a nice completion overlay
@@ -274,6 +326,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   endSessionBtn.addEventListener('click', () => {
+      // Release wake lock just in case the end button is clicked manually
+      wakeLockManager.release();
+      
       clearInterval(timerInterval);
       const duration = Date.now() - startTime;
       localStorage.setItem('duration', duration);
