@@ -108,10 +108,12 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
   const btn = event.target;
   const originalText = btn.value;
 
-  // PRIME SPEECH FOR MOBILE: Unlocks TTS by speaking immediately on tap
+  // AGGRESSIVE MOBILE KICKSTART
   if ('speechSynthesis' in window) {
-      const welcome = new SpeechSynthesisUtterance("Journey beginning. Prepare yourself.");
-      welcome.rate = 0.8;
+      window.speechSynthesis.cancel(); // Clear any stalled state
+      window.speechSynthesis.resume(); // Force engine active
+      const welcome = new SpeechSynthesisUtterance("Beginning.");
+      welcome.rate = 1.0;
       window.speechSynthesis.speak(welcome);
   }
   

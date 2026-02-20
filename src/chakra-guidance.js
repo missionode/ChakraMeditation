@@ -49,10 +49,14 @@ export class ChakraGuidance {
       return;
     }
 
+    // Chrome Mobile Fix: Ensure the synthesis isn't paused
+    if (this.synth.paused) {
+        this.synth.resume();
+    }
+
     const settings = getStoredVoiceSettings();
     const voice = this._getBestVoice(settings.voiceName);
     
-    // Create and store on the instance to prevent Garbage Collection on mobile
     this.currentUtterance = new SpeechSynthesisUtterance(phrases[index]);
     
     if (voice) {
@@ -65,9 +69,8 @@ export class ChakraGuidance {
     this.currentUtterance.volume = settings.volume || 1.0;
 
     this.currentUtterance.onend = () => {
-      // Small pause before next phrase
       setTimeout(() => {
-        if (this.currentUtterance) { // Check if not cancelled
+        if (this.currentUtterance) {
             this._speakPhrases(phrases, index + 1, onEndCallback);
         }
       }, 1500);
@@ -75,6 +78,8 @@ export class ChakraGuidance {
 
     this.currentUtterance.onerror = (e) => {
       console.error("Speech error:", e);
+      // Forced resume on error often fixes mobile stalls
+      this.synth.resume();
       if (e.error !== 'interrupted') {
           this._speakPhrases(phrases, index + 1, onEndCallback);
       }
