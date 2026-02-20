@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Settings - Chakra Meditation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d012a;
+            min-height: 100vh;
+            color: #fff;
+            padding-bottom: 50px;
+        }
+
+        .app {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            color: #b5e48c;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .voice-info {
+            background: rgba(103, 74, 235, 0.2);
+            border: 1px solid rgba(103, 74, 235, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+            margin: 1rem auto;
+            font-size: 0.85rem;
+        }
+
+        .voice-info span {
+            font-weight: 600;
+            color: #b5e48c;
+        }
+
+        .player-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .current-phrase {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            border: 1px dashed rgba(181, 228, 140, 0.3);
+        }
+
+        .voice-settings {
+            background: rgba(103, 74, 235, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .settings-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #b5e48c;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slider-container {
+            margin: 1.2rem 0;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #674aeb;
+            border: 2px solid #b5e48c;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .voice-select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            background: #190b3a;
+            border: 1px solid rgba(103, 74, 235, 0.5);
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: #674aeb;
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #7b5ff0;
+            transform: translateY(-1px);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 1px solid #674aeb;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #b5e48c;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>Voice Settings</h1>
+            <p>Customize the guidance for your spiritual journey</p>
+            <div class="voice-info" id="voiceInfo">
+                Detecting voices...
+            </div>
+        </div>
+
+        <div class="player-section">
+            <div class="settings-title">
+                <span>🎤</span> Narration Preview
+            </div>
+            
+            <div class="current-phrase" id="currentPhrase">
+                Gently locate your awareness, at the base of your spine.
+            </div>
+
+            <button class="btn" id="testBtn" onclick="testVoice()">
+                <span>🎵</span> Test Voice
+            </button>
+        </div>
+
+        <div class="voice-settings">
+            <div class="settings-title">
+                <span>⚙️</span> Configuration
+            </div>
+            
+            <label class="slider-label">Select Voice</label>
+            <select class="voice-select" id="voiceSelect" onchange="saveSettings()">
+                <option value="">Auto-select best voice</option>
+            </select>
+
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Speed (Rate)</span>
+                    <span id="speedValue">0.70x</span>
+                </div>
+                <input type="range" id="speedSlider" min="0.5" max="1.2" step="0.05" value="0.7" oninput="updateUIValue('speed', this.value); saveSettings();">
+            </div>
+
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Pitch</span>
+                    <span id="pitchValue">1.0</span>
+                </div>
+                <input type="range" id="pitchSlider" min="0.5" max="1.5" step="0.1" value="1.0" oninput="updateUIValue('pitch', this.value); saveSettings();">
+            </div>
+
+            <button class="btn secondary" onclick="resetDefaults()">
+                Reset to Meditative Defaults
+            </button>
+        </div>
+
+        <center>
+            <a href="settings.html" class="back-link">← Back to Settings</a>
+        </center>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'chakra_voice_settings';
+        const DEFAULT_SETTINGS = {
+            voiceName: '',
+            rate: 0.7,
+            pitch: 1.0,
+            volume: 1.0
+        };
+
+        let synth = window.speechSynthesis;
+        let voices = [];
+
+        function init() {
+            loadSettings();
+            loadVoices();
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = loadVoices;
+            }
+        }
+
+        function loadVoices() {
+            voices = synth.getVoices();
+            const select = document.getElementById('voiceSelect');
+            const currentVoiceName = getStoredSettings().voiceName;
+            
+            select.innerHTML = '<option value="">Auto-select best voice</option>';
+            
+            // Group voices
+            const groups = {
+                'en-IN': '🇮🇳 Indian English',
+                'hi-IN': '🇮🇳 Hindi',
+                'en-US': '🇺🇸 US English',
+                'en-GB': '🇬🇧 UK English'
+            };
+
+            const groupedVoices = {};
+            voices.forEach(v => {
+                if (!groupedVoices[v.lang]) groupedVoices[v.lang] = [];
+                groupedVoices[v.lang].push(v);
+            });
+
+            Object.keys(groups).forEach(lang => {
+                if (groupedVoices[lang]) {
+                    const group = document.createElement('optgroup');
+                    group.label = groups[lang];
+                    groupedVoices[lang].forEach(v => {
+                        const opt = document.createElement('option');
+                        opt.value = v.name;
+                        opt.textContent = v.name;
+                        if (v.name === currentVoiceName) opt.selected = true;
+                        group.appendChild(opt);
+                    });
+                    select.appendChild(group);
+                }
+            });
+
+            updateVoiceBadge();
+        }
+
+        function updateVoiceBadge() {
+            const select = document.getElementById('voiceSelect');
+            const info = document.getElementById('voiceInfo');
+            const currentVoice = voices.find(v => v.name === select.value);
+            
+            if (currentVoice) {
+                info.innerHTML = `Using: <span>${currentVoice.name}</span>`;
+            } else {
+                info.innerHTML = `<span>Auto-optimizing</span> for your device`;
+            }
+        }
+
+        function updateUIValue(type, val) {
+            if (type === 'speed') document.getElementById('speedValue').textContent = val + 'x';
+            if (type === 'pitch') document.getElementById('pitchValue').textContent = val;
+        }
+
+        function getStoredSettings() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            return stored ? JSON.parse(stored) : DEFAULT_SETTINGS;
+        }
+
+        function loadSettings() {
+            const s = getStoredSettings();
+            document.getElementById('speedSlider').value = s.rate;
+            document.getElementById('pitchSlider').value = s.pitch;
+            updateUIValue('speed', s.rate);
+            updateUIValue('pitch', s.pitch);
+        }
+
+        function saveSettings() {
+            const settings = {
+                voiceName: document.getElementById('voiceSelect').value,
+                rate: parseFloat(document.getElementById('speedSlider').value),
+                pitch: parseFloat(document.getElementById('pitchSlider').value),
+                volume: 1.0
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+            updateVoiceBadge();
+        }
+
+        function resetDefaults() {
+            localStorage.removeItem(STORAGE_KEY);
+            loadSettings();
+            loadVoices();
+            saveSettings();
+        }
+
+        function testVoice() {
+            synth.cancel();
+            const s = getStoredSettings();
+            const text = document.getElementById('currentPhrase').textContent;
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            const selectedVoice = voices.find(v => v.name === s.voiceName);
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                utterance.lang = selectedVoice.lang;
+            } else {
+                utterance.lang = 'en-IN';
+            }
+
+            utterance.rate = s.rate;
+            utterance.pitch = s.pitch;
+            synth.speak(utterance);
+        }
+
+        init();
+    </script>
+</body>
+</html>
