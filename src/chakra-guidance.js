@@ -43,7 +43,6 @@ export class ChakraGuidance {
   _speakPhrases(phrases, index, onEndCallback) {
     if (index >= phrases.length) {
       this.currentUtterance = null;
-      // Resonance gap before meditation starts
       setTimeout(() => {
         if (onEndCallback) onEndCallback();
       }, 2000); 
@@ -53,6 +52,7 @@ export class ChakraGuidance {
     const settings = getStoredVoiceSettings();
     const voice = this._getBestVoice(settings.voiceName);
     
+    // Create and store on the instance to prevent Garbage Collection on mobile
     this.currentUtterance = new SpeechSynthesisUtterance(phrases[index]);
     
     if (voice) {
@@ -65,16 +65,19 @@ export class ChakraGuidance {
     this.currentUtterance.volume = settings.volume || 1.0;
 
     this.currentUtterance.onend = () => {
-      // 1.5s meditative pause between phrases
+      // Small pause before next phrase
       setTimeout(() => {
-        this._speakPhrases(phrases, index + 1, onEndCallback);
+        if (this.currentUtterance) { // Check if not cancelled
+            this._speakPhrases(phrases, index + 1, onEndCallback);
+        }
       }, 1500);
     };
 
     this.currentUtterance.onerror = (e) => {
       console.error("Speech error:", e);
-      // Attempt to continue to next phrase on error
-      this._speakPhrases(phrases, index + 1, onEndCallback);
+      if (e.error !== 'interrupted') {
+          this._speakPhrases(phrases, index + 1, onEndCallback);
+      }
     };
 
     this.synth.speak(this.currentUtterance);

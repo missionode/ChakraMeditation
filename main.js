@@ -108,10 +108,11 @@ document.getElementById("startSessionBtn").addEventListener("click", function (e
   const btn = event.target;
   const originalText = btn.value;
 
-  // PRIME SPEECH FOR MOBILE: Unlocks TTS by playing silence immediately on tap
+  // PRIME SPEECH FOR MOBILE: Unlocks TTS by speaking immediately on tap
   if ('speechSynthesis' in window) {
-      const silentUtterance = new SpeechSynthesisUtterance("");
-      window.speechSynthesis.speak(silentUtterance);
+      const welcome = new SpeechSynthesisUtterance("Journey beginning. Prepare yourself.");
+      welcome.rate = 0.8;
+      window.speechSynthesis.speak(welcome);
   }
   
   // 1. Preparation Phase: 4-second countdown
