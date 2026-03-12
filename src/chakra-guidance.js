@@ -48,9 +48,7 @@ export class ChakraGuidance {
         
         return langData.guidance.map(phrase => {
             return phrase
-                .replace(/{name}/g, chakraData.name)
-                .replace(/{mantra}/g, chakraData.mantra)
-                .replace({name}/g, chakraData.name).replace({mantra}/g, chakraData.mantra).replace({loc}/g, chakraData.loc).replace({deity}/g, chakraData.deity || "").replace({shakti}/g, chakraData.shakti || "");
+                .replace(/{name}/g, chakraData.name || "").replace(/{mantra}/g, chakraData.mantra || "").replace(/{loc}/g, chakraData.loc || "").replace(/{deity}/g, chakraData.deity || "").replace(/{shakti}/g, chakraData.shakti || "");
         });
     }
 
