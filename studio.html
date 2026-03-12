@@ -72,6 +72,7 @@
                 <li><i class="fas fa-home"><svg fill="white" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0 0 24 24">
 					<path d="M 12 2 A 1 1 0 0 0 11.289062 2.296875 L 1.203125 11.097656 A 0.5 0.5 0 0 0 1 11.5 A 0.5 0.5 0 0 0 1.5 12 L 4 12 L 4 20 C 4 20.552 4.448 21 5 21 L 9 21 C 9.552 21 10 20.552 10 20 L 10 14 L 14 14 L 14 20 C 14 20.552 14.448 21 15 21 L 19 21 C 19.552 21 20 20.552 20 20 L 20 12 L 22.5 12 A 0.5 0.5 0 0 0 23 11.5 A 0.5 0.5 0 0 0 22.796875 11.097656 L 12.716797 2.3027344 A 1 1 0 0 0 12.710938 2.296875 A 1 1 0 0 0 12 2 z"></path>
 				</svg></i> <a href="index.html">Home</a></li>
+                <li><i class="fas fa-bolt"><svg fill="white" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M13 10V3L4 14H11V21L20 10H13Z"/></svg></i> <a href="lite/index.html">Chakra Lite</a></li>
                 <li class="profilelink"><i class="fas fa-user"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
 					<path d="M10 6.25C10 6.91304 9.73661 7.54893 9.26777 8.01777C8.79893 8.48661 8.16304 8.75 7.5 8.75C6.83696 8.75 6.20107 8.48661 5.73223 8.01777C5.26339 7.54893 5 6.91304 5 6.25C5 5.58696 5.26339 4.95107 5.73223 4.48223C6.20107 4.01339 6.83696 3.75 7.5 3.75C8.16304 3.75 8.79893 4.01339 9.26777 4.48223C9.73661 4.95107 10 5.58696 10 6.25Z" fill="white"/>
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M7.245 13.745C3.91156 13.6113 1.25 10.8663 1.25 7.5C1.25 4.04813 4.04813 1.25 7.5 1.25C10.9519 1.25 13.75 4.04813 13.75 7.5C13.75 10.9519 10.9519 13.75 7.5 13.75H7.41437C7.35771 13.75 7.30125 13.7483 7.245 13.745ZM3.48938 11.4437C3.44265 11.3096 3.42674 11.1666 3.44284 11.0254C3.45894 10.8842 3.50663 10.7484 3.58237 10.6282C3.65811 10.508 3.75996 10.4063 3.88035 10.3309C4.00074 10.2554 4.13659 10.208 4.27781 10.1922C6.71406 9.9225 8.30094 9.94687 10.7253 10.1978C10.8667 10.2125 11.0029 10.2593 11.1235 10.3347C11.2441 10.41 11.3459 10.5118 11.4212 10.6324C11.4965 10.753 11.5432 10.8892 11.5579 11.0306C11.5726 11.172 11.5548 11.3149 11.5059 11.4484C12.545 10.3972 13.1269 8.97812 13.125 7.5C13.125 4.39344 10.6066 1.875 7.5 1.875C4.39344 1.875 1.875 4.39344 1.875 7.5C1.875 9.03625 2.49094 10.4287 3.48938 11.4437Z" fill="white"/>
@@ -338,14 +339,21 @@
 				<h2 style="margin-top: 20px;">For Advanced Practitioner</h2>
 				<p style="text-align: left;">Select your current energy to practice , You can also set your current strength all at
 					once</p>
-				<div>
-					<select name="" id="energylevel">
+				<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+					<select name="" id="energylevel" style="padding: 8px; border-radius: 5px;">
 						<option value="1">Weak</option>
 						<option value="6">Strong</option>
-						<option value="11">Stronger</option>`
+						<option value="11">Stronger</option>
 					</select>
-					<input style="background-color: #674aeb;" class="EnergySpot"
+					<input style="background-color: #674aeb; border: none; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" class="EnergySpot"
 						onclick="SetEnergy(document.getElementById('energylevel').value)" value="Set Energy" type="button">
+				</div>
+
+				<div style="margin-top: 30px; padding: 15px; background: rgba(103, 74, 235, 0.1); border-radius: 10px; text-align: left; border: 1px solid rgba(103, 74, 235, 0.3);">
+					<p style="margin: 0; font-size: 0.9em; color: #fff;">
+						✨ <strong>Try Chakra Lite:</strong> A synthesizer-based version using Solfeggio frequencies for real-time chanting.
+						<a href="lite/index.html" style="color: #87ceeb; font-weight: bold; text-decoration: underline; margin-left: 5px;">Launch Lite Version</a>
+					</p>
 				</div>
 			
 			

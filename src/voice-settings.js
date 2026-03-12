@@ -2,6 +2,7 @@ export const VOICE_STORAGE_KEY = 'chakra_voice_settings';
 
 export const DEFAULT_VOICE_SETTINGS = {
     voiceName: '',
+    language: 'ml-IN', // Malayalam by default
     rate: 0.7,
     pitch: 1.0,
     volume: 1.0

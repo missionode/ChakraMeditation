@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chakra Meditation - Lite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ffd700;
+            --chakra-color: #ffd700;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Start from top to allow scrolling */
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto; /* Allow vertical scroll */
+            transition: background-color 2s ease;
+            padding: 40px 0; /* Add some padding for the scroll */
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            letter-spacing: 4px;
+            color: var(--accent-color);
+        }
+
+        .header-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .settings-bar {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(5px);
+        }
+
+        .settings-bar .group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: left;
+        }
+
+        .settings-bar label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            margin-bottom: 0;
+        }
+
+        .settings-bar select {
+            background: #111;
+            color: #eee;
+            border: 1px solid #333;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            outline: none;
+            min-width: 130px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .header-actions a {
+            color: var(--accent-color);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .header-actions a:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        #chakra-display {
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            opacity: 0.7;
+            transition: color 1s ease;
+        }
+
+        #mantra-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            min-height: 35vh;
+            width: 100%;
+        }
+
+        #mantra-symbol-img {
+            width: 40vmin;
+            height: 40vmin;
+            max-width: 250px;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            filter: drop-shadow(0 0 20px var(--chakra-color));
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 1.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Prevent image flickering or broken icons */
+        #mantra-symbol-img[src=""], 
+        #mantra-symbol-img:not([src]) {
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        #mantra-text {
+            font-size: clamp(3rem, 15vmin, 8rem);
+            font-family: 'Cinzel', serif;
+            color: var(--chakra-color);
+            text-shadow: 0 0 30px var(--chakra-color);
+            margin: 0;
+            transition: all 1s ease;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        #timer-display {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .control-group {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #duration-val {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            appearance: none;
+            background: #333;
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 12px 40px;
+            font-size: 1.2rem;
+            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        button:disabled {
+            border-color: #444;
+            color: #444;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            font-style: italic;
+            opacity: 0.6;
+            min-height: 1.2rem;
+        }
+
+        #visualizer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="visualizer"></canvas>
+    <div class="header-actions">
+        <a href="../studio.html" class="home-link" title="Back to Sanctum">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>Chakra Lite</h1>
+
+        <div class="settings-bar" id="inline-settings">
+            <div class="group">
+                <label for="lang-select">Language</label>
+                <select id="lang-select">
+                    <option value="en-US">English</option>
+                    <option value="ml-IN">Malayalam</option>
+                </select>
+            </div>
+            <div class="group">
+                <label for="voice-select">Voice</label>
+                <select id="voice-select">
+                    <option value="">Detecting...</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="chakra-display">Ready</div>
+        <div id="mantra-container" style="visibility: hidden;">
+            <img id="mantra-symbol-img" alt="Mantra Symbol">
+            <div id="mantra-text"></div>
+        </div>
+        <div id="timer-display">--:--</div>
+
+        <div class="controls" id="setup-controls">
+            <div class="control-group">
+                <label for="duration">Session Duration (minutes)</label>
+                <input type="range" id="duration" min="1" max="30" value="5">
+                <div id="duration-val">5 Minutes</div>
+            </div>
+            <div class="control-group">
+                <label for="strength">Vibration Strength</label>
+                <input type="range" id="strength" min="0" max="100" value="50">
+            </div>
+            <button id="start-btn">Begin Journey</button>
+        </div>
+
+        <div class="controls hidden" id="active-controls">
+            <div class="button-group">
+                <button id="pause-btn">Pause</button>
+                <button id="stop-btn">End Session</button>
+            </div>
+        </div>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
