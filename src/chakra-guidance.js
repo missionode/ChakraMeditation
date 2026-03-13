@@ -44,7 +44,7 @@ export class ChakraGuidance {
     // Priority 1: Use external localized content (JSON driven) if available
     if (localizedContent && localizedContent[language]) {
         const langData = localizedContent[language];
-        const chakraData = langData[chakra.name] || { name: chakra.name, mantra: chakra.mantra, loc: chakra.location };
+        const chakraData = { ...chakra, loc: chakra.location, ...(langData[chakra.name] || {}) };
         
         return langData.guidance.map(phrase => {
             return phrase

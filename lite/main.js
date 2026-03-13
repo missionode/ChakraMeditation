@@ -278,7 +278,7 @@ async function startSession() {
 
     manager.onChakraChange = (chakra, index, isTransition) => {
         const lang = langSelect.value;
-        const localized = chakraContent[lang][chakra.name] || { name: chakra.name, mantra: chakra.mantra };
+        const localized = { ...chakra, loc: chakra.location, ...(chakraContent[lang][chakra.name] || {}) };
         const placeholder = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
         if (isTransition) {
